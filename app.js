@@ -43,7 +43,7 @@ passport.use(
         const user = await prisma.users.upsert({
           where: { googleId: profile.id },
           update: {},
-          create: { googleId: profile.id },
+          create: { googleId: profile.id , name : profile.name.givenName },
         });
         return cb(null, user);
       } catch (error) {
@@ -74,6 +74,11 @@ app.set("view engine", "ejs");
 
 app.use(passport.initialize()); 
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user; 
+  next();
+});
 
 
 app.use("/", indexRouter);

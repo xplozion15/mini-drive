@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mini-drive</title>
 </head>
+
 <body>
-    <h1>Welcome to mini drive!</h1>
-    <p>Store your files here and you can access it anytime with your account.</p>
-    <a href="/login">login</a>
+
+    <% if (user) { %>
+        <h1>Welcome to mini drive! <%= user.name %>
+        </h1>
+        <% } else { %>
+            <h1>Welcome to mini drive!</h1>
+            <%} %>
+                <p>Store your files here and you can access it anytime with your account.</p>
+                <% if (!user) { %>
+                    <a href="/login">login</a>
+                    <% } %>
+
+                        <% if (user) { %>
+                            <form action="/logout" method="post">
+                                <button type="submit">logout</button>
+                            </form>
+
+                            <% } %>
 </body>
+
 </html>
