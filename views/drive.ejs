@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h2>your drive</h2>
+    <button class="new-folder-button">create new folder</button>
+
+    <% folders.forEach((folder)=> { %>
+        <a href="/drive/<%= folder.id %>">
+            <div class="folder-div" data-folder-id="<%= folder.id %>">
+                <p>
+                    <%= folder.name %>
+                </p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-ellipsis-icon lucide-ellipsis">
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="19" cy="12" r="1" />
+                    <circle cx="5" cy="12" r="1" />
+                </svg>
+            </div>
+        </a>
+        <% }) %>
+
+        <dialog class="create-folder-dialog">
+        <form action="/drive/newfolder" method="post">
+            <div>
+                <label for="folder-name">Name?</label>
+                <input type="text" name="folder-name" id="folder-name">
+            </div>
+            <button type="reset" class="cancel-new-folder-button">CANCEL</button>
+            <button type="submit" class="create-new-folder-button">CREATE</button>
+        </form>
+    </dialog>
+
+        
+    <script>
+        let newFolderButton = document.querySelector(".new-folder-button");
+        let createFolderDialog = document.querySelector(".create-folder-dialog");
+        let createNewFolderButton = document.querySelector(".create-new-folder-button");
+        let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
+
+        newFolderButton.addEventListener("click", () => {
+            // window.location.href = "/drive/newfolder"; 
+            //instead of href make a modal
+            createFolderDialog.showModal();
+
+        })
+
+        createNewFolderButton.addEventListener("click", () => {
+            createFolderDialog.close();
+        })
+
+        cancelNewFolderButton.addEventListener("click", () => {
+            createFolderDialog.close();
+        })
+
+    </script>
+</body>
+
+</html>

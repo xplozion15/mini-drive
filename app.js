@@ -10,7 +10,15 @@ const {indexRouter} = require("./routes/indexRouter")
 
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
+const { driveRouter } = require("./routes/driveRouter");
 const prisma = new PrismaClient();
+
+
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json()); 
+
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
 
 app.use(
   expressSession({
@@ -40,7 +48,7 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
-        const user = await prisma.users.upsert({
+        const user = await prisma.user.upsert({
           where: { googleId: profile.id },
           update: {},
           create: { googleId: profile.id , name : profile.name.givenName },
@@ -59,7 +67,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await prisma.users.findUnique({ where: { id } });
+    const user = await prisma.user.findUnique({ where: { id } });
     done(null, user);
   } catch (err) {
     done(err, null);
@@ -82,6 +90,7 @@ app.use((req, res, next) => {
 
 
 app.use("/", indexRouter);
+app.use("/drive",driveRouter)
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
