@@ -53,4 +53,35 @@ async function postNewFolderToDb(req, res) {
   return res.redirect(parentFolderId ? `/drive/${parentFolderId}` : "/drive");
 }
 
-module.exports = { showdrivePage, showFolderPage, postNewFolderToDb };
+async function deleteFolderFromDb(req, res) {
+  const userId = Number(req.user.id); // get the current user and folder id
+  const folderId = Number(req.params.folderId);
+
+  const folder = await prisma.folder.findUnique({
+    //doing this to get the folder and then get the parent id to use in the redirect url
+    where: {
+      id: folderId,
+      userId : userId
+    },
+    select: {
+      parentId: true,
+    },
+  });
+
+  await prisma.folder.delete({   //del the folder tied to the user
+    where: {
+      id: folderId,
+      userId: userId,
+    },
+  });
+
+
+  res.redirect(`/drive/${folder.parentId}`);
+}
+
+module.exports = {
+  showdrivePage,
+  showFolderPage,
+  postNewFolderToDb,
+  deleteFolderFromDb,
+};

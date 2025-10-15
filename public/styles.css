@@ -2,7 +2,6 @@
 
 a {
     display: inline-block;
-    border: 2px solid peachpuff;
     width: 10rem;
     flex-direction: row;
     color: white;
@@ -23,10 +22,11 @@ a {
 .folder-div {
     padding: 0.2rem;
     display: flex;
-    /* border: 2px solid red; */
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .folder-title-div {
@@ -34,3 +34,15 @@ a {
     align-items: center;
     gap: 0.5rem;
 }
+
+.folder-options-dialog {
+    background-color: #e5e5e5;
+    color: black;
+     position: absolute;
+     visibility: hidden;
+     top: 90%;
+     left: 67%;
+     z-index: 999;
+}
+
+

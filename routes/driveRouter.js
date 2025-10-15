@@ -10,5 +10,6 @@ driveRouter.get("/:folderId",driveControllers.showFolderPage)
 //post req
 
 driveRouter.post("/newfolder",driveControllers.postNewFolderToDb)
+driveRouter.post("/del/:folderId",driveControllers.deleteFolderFromDb)
 
 module.exports = {driveRouter}
