@@ -22,7 +22,13 @@ async function showFolderPage(req, res) {
   }
 
   const folders = await prisma.folder.findMany({
-    where: { userId: req.user.id, parentId: parentFolderId },
+    where: {
+      userId: req.user.id,
+      parentId: parentFolderId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return res.render("folderPage", {
@@ -61,20 +67,53 @@ async function deleteFolderFromDb(req, res) {
     //doing this to get the folder and then get the parent id to use in the redirect url
     where: {
       id: folderId,
-      userId : userId
+      userId: userId,
     },
     select: {
       parentId: true,
     },
   });
 
-  await prisma.folder.delete({   //del the folder tied to the user
+  await prisma.folder.delete({
+    //del the folder tied to the user
     where: {
       id: folderId,
       userId: userId,
     },
   });
 
+  res.redirect(`/drive/${folder.parentId}`);
+}
+
+async function renameFolderInDb(req, res) {
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+
+  const userId = Number(req.user.id); // get the current user and folder id
+  const folderId = Number(req.body["folder-id"]);
+  const newFolderName = req.body["folder-rename"];
+
+  const folder = await prisma.folder.findUnique({
+    //doing this to get the folder and then get the parent id to use in the redirect url
+    where: {
+      id: folderId,
+      userId: userId,
+    },
+    select: {
+      parentId: true,
+    },
+  });
+
+  await prisma.folder.update({
+    where: {
+      id: folderId,
+      userId: userId,
+    },
+    data: {
+      name: newFolderName,
+    },
+  });
 
   res.redirect(`/drive/${folder.parentId}`);
 }
@@ -84,4 +123,5 @@ module.exports = {
   showFolderPage,
   postNewFolderToDb,
   deleteFolderFromDb,
+  renameFolderInDb,
 };

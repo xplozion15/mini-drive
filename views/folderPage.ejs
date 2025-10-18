@@ -41,8 +41,19 @@
                         <form action="/drive/del/<%= folder.id %>" method="post" class="delete-folder-form">
                             <button type="submit" class="menu-delete" data-folder-id="<%= folder.id %>">delete</button>
                         </form>
-                        <p class="menu-rename" data-folder-id="<%= folder.id %>">rename</p>
+                        <p class="menu-rename" data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">rename</p>
                     </div>
+
+                    <dialog class="folder-rename-dialog">
+                        <form action="/drive/rename/<%= folder.id %>" method="post">
+                            <input type="text" name="folder-id" id="folder-id" hidden>
+                            <div>
+                                <input type="text" name="folder-rename" id="folder-rename">
+                            </div>
+                            <button type="reset" class="cancel-folder-rename-button" id="cancel-folder-rename-button">CANCEL</button>
+                            <button type="submit" class="submit-rename-folder-button" id="submit-rename-folder-button">RENAME</button>
+                        </form>
+                    </dialog>
 
                 </div>
             </a>
@@ -70,8 +81,11 @@
         let threeDotsIcons = document.querySelectorAll(".three-dots-icon");
         let folderOptionsDialogs = document.querySelectorAll(".folder-options-dialog");
         let folderDivs = document.querySelectorAll(".folder-div");
-
-
+        let renameFolderButtons = document.querySelectorAll(".menu-rename");
+        let folderRenameDialog = document.querySelector(".folder-rename-dialog");
+        let cancelFolderRenameButton = document.querySelector("#cancel-folder-rename-button");
+        let submitFolderRenameButton = document.querySelector("#submit-folder-rename-button");
+     
 
         newFolderButton.addEventListener("click", () => {
 
@@ -79,15 +93,38 @@
         });
 
 
+        renameFolderButtons.forEach((renameButton) => {
+            renameButton.addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                event.preventDefault();
+
+                const folderId = renameButton.dataset.folderId;
+                const folderName = renameButton.dataset.folderName;
+
+                folderRenameDialog.showModal();
+                document.querySelector("#folder-id").value = folderId;
+                document.querySelector("#folder-rename").value = folderName;
+
+            })
+        })  
+
+        cancelFolderRenameButton.addEventListener("click",(event)=>{
+            event.stopPropagation();
+            document.querySelector(".folder-rename-dialog").close();
+        })
+
+      
+
         deleteFolderForms.forEach((form) => {
-
-
             form.addEventListener("submit", (event) => {
                 event.stopPropagation();
+
                 // event.preventDefault();
 
             })
         })
+
 
         createNewFolderButton.addEventListener("click", () => {
             createFolderDialog.close();
