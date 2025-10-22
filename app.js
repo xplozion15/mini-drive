@@ -6,16 +6,16 @@ const path = require("node:path");
 const expressSession = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
-const {indexRouter} = require("./routes/indexRouter")
-
+const { indexRouter } = require("./routes/indexRouter");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const { driveRouter } = require("./routes/driveRouter");
 const prisma = new PrismaClient();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
-
-app.use(express.urlencoded({ extended: true })); 
-app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
@@ -36,22 +36,19 @@ app.use(
   }),
 );
 
-// var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:3000/google/callback",
-      
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
         const user = await prisma.user.upsert({
           where: { googleId: profile.id },
           update: {},
-          create: { googleId: profile.id , name : profile.name.givenName },
+          create: { googleId: profile.id, name: profile.name.givenName },
         });
         return cb(null, user);
       } catch (error) {
@@ -74,34 +71,65 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-
 // app.js
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-
-app.use(passport.initialize()); 
+app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  res.locals.user = req.user; 
+  res.locals.user = req.user;
   next();
 });
 
-
 app.use("/", indexRouter);
-app.use("/drive",driveRouter)
+app.use("/drive", driveRouter);
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] }),
+);
 
-app.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
+app.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+    res.redirect("/");
+  },
+);
 
+app.post("/profile", upload.single("avatar"), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+   res.redirect("/");   //refresh the same page //
+
+});
+
+app.post(
+  "/photos/upload",
+  upload.array("photos", 12),
+  function (req, res, next) {
+    // req.files is array of `photos` files
+    // req.body will contain the text fields, if there were any
+    res.redirect("/")
+  },
+);
+
+const uploadMiddleware = upload.fields([
+  { name: "avatar", maxCount: 1 },
+  { name: "gallery", maxCount: 8 },
+]);
+app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
+  // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
+  //
+  // e.g.
+  //  req.files['avatar'][0] -> File
+  //  req.files['gallery'] -> Array
+  //
+  // req.body will contain the text fields, if there were any
+});
 
 app.listen(port, () => {
   console.log(`Welcome to mini drive express app ${port}`);
