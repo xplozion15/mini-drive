@@ -29,7 +29,7 @@
 
     <!--  dialog for file  upload -->
     <dialog class="file-upload-dialog">
-        <form action="/profile" method="post" enctype="multipart/form-data">
+        <form action="/profile/<%= parentFolderId %>" method="post" enctype="multipart/form-data">
             <input type="file" name="avatar" />
             <div>
                 <button type="button" class="file-upload-cancel-button">CANCEL</button>
@@ -88,7 +88,43 @@
                 </div>
             </a>
             <% }) %>
+
+
+                <% files.forEach((file)=>{ %>
+                    <a href="">
+                        <div class="file-div">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-file-icon lucide-file">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            </svg>
+
+                            <p>
+                                <%= file.name %>
+                            </p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical three-dots-icon">
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="12" cy="5" r="1" />
+                                <circle cx="12" cy="19" r="1" />
+                            </svg>
+
+                            <div class="file-options-dialog">
+                                <p>file options dialog hehe</p>
+                            </div>
+
+                        </div>
+                    </a>
+                    <% }) %>
+
+
     </div>
+
+
 
     <dialog class="create-folder-dialog">
         <form action="/drive/newfolder" method="post">

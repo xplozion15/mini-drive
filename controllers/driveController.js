@@ -17,11 +17,11 @@ async function showdrivePage(req, res) {
 async function showFolderPage(req, res) {
   const parentFolderId = Number(req.params.folderId);
 
-  if (!req.user) {
+  if (!req.user) {   // if user is not logged in then redirect to login page//
     return res.redirect("/login");
   }
 
-  const folders = await prisma.folder.findMany({
+  const folders = await prisma.folder.findMany({  // get the folders
     where: {
       userId: req.user.id,
       parentId: parentFolderId,
@@ -31,9 +31,19 @@ async function showFolderPage(req, res) {
     },
   });
 
+  const files = await prisma.file.findMany({
+    where : {
+      folderId : parentFolderId,
+    },
+    orderBy : {
+      createdAt : "desc",
+    }
+  })
+
   return res.render("folderPage", {
     folders: folders,
     parentFolderId: parentFolderId,
+    files : files,
   });
 }
 

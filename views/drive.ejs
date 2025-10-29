@@ -20,49 +20,48 @@
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-ellipsis-icon lucide-ellipsis">
+                    class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical three-dots-icon">
                     <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
+                    <circle cx="12" cy="5" r="1" />
+                    <circle cx="12" cy="19" r="1" />
                 </svg>
             </div>
         </a>
         <% }) %>
 
-        <dialog class="create-folder-dialog">
-        <form action="/drive/newfolder" method="post">
-            <div>
-                <label for="folder-name">Name?</label>
-                <input type="text" name="folder-name" id="folder-name">
-            </div>
-            <button type="reset" class="cancel-new-folder-button">CANCEL</button>
-            <button type="submit" class="create-new-folder-button">CREATE</button>
-        </form>
-    </dialog>
+            <dialog class="create-folder-dialog">
+                <form action="/drive/newfolder" method="post">
+                    <div>
+                        <label for="folder-name">Name?</label>
+                        <input type="text" name="folder-name" id="folder-name">
+                    </div>
+                    <button type="reset" class="cancel-new-folder-button">CANCEL</button>
+                    <button type="submit" class="create-new-folder-button">CREATE</button>
+                </form>
+            </dialog>
 
-        
-    <script>
-        let newFolderButton = document.querySelector(".new-folder-button");
-        let createFolderDialog = document.querySelector(".create-folder-dialog");
-        let createNewFolderButton = document.querySelector(".create-new-folder-button");
-        let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
 
-        newFolderButton.addEventListener("click", () => {
-            // window.location.href = "/drive/newfolder"; 
-            //instead of href make a modal
-            createFolderDialog.showModal();
+            <script>
+                let newFolderButton = document.querySelector(".new-folder-button");
+                let createFolderDialog = document.querySelector(".create-folder-dialog");
+                let createNewFolderButton = document.querySelector(".create-new-folder-button");
+                let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
 
-        })
+                newFolderButton.addEventListener("click", () => {
+                    // window.location.href = "/drive/newfolder"; 
+                    //instead of href make a modal
+                    createFolderDialog.showModal();
+                })
 
-        createNewFolderButton.addEventListener("click", () => {
-            createFolderDialog.close();
-        })
+                createNewFolderButton.addEventListener("click", () => {
+                    createFolderDialog.close();
+                })
 
-        cancelNewFolderButton.addEventListener("click", () => {
-            createFolderDialog.close();
-        })
+                cancelNewFolderButton.addEventListener("click", () => {
+                    createFolderDialog.close();
+                })
 
-    </script>
+            </script>
 </body>
 
 </html>

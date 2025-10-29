@@ -100,12 +100,30 @@ app.get(
   },
 );
 
-app.post("/profile", upload.single("avatar"), function (req, res, next) {
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
-   res.redirect("/");   //refresh the same page //
+app.post(
+  "/profile/:parentFolderId",
+  upload.single("avatar"),
+  async function (req, res, next) {
+    const parentFolderId = Number(req.params.parentFolderId);
+    const file = req.file;
+    console.log(file);
 
-});
+    await prisma.file.create({
+      data: {
+        name: file.originalname,
+        folderId: parentFolderId,
+        path: file.path,
+        size: file.size,
+        fileType: file.mimetype,
+      },
+    });
+
+    // req.file is the `avatar` file
+    // req.body will hold the text fields, if there were any
+    res.redirect(`/drive/${parentFolderId}`);   //refresh the same page//
+
+  },
+);
 
 app.post(
   "/photos/upload",
@@ -113,7 +131,7 @@ app.post(
   function (req, res, next) {
     // req.files is array of `photos` files
     // req.body will contain the text fields, if there were any
-    res.redirect("/")
+    res.redirect("/");
   },
 );
 
