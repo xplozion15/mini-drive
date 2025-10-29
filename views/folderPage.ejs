@@ -72,22 +72,22 @@
                             rename</p>
                     </div>
 
-                    
+
 
                 </div>
             </a>
             <dialog class="folder-rename-dialog">
-                        <form action="/drive/rename/<%= folder.id %>" method="post">
-                            <input type="text" name="folder-id" id="folder-id" hidden>
-                            <div>
-                                <input type="text" name="folder-rename" id="folder-rename">
-                            </div>
-                            <button type="reset" class="cancel-folder-rename-button"
-                                id="cancel-folder-rename-button">CANCEL</button>
-                            <button type="submit" class="submit-rename-folder-button"
-                                id="submit-rename-folder-button">RENAME</button>
-                        </form>
-                    </dialog>
+                <form action="/drive/rename/<%= folder.id %>" method="post">
+                    <input type="text" name="folder-id" id="folder-id" hidden>
+                    <div>
+                        <input type="text" name="folder-rename" id="folder-rename">
+                    </div>
+                    <button type="reset" class="cancel-folder-rename-button"
+                        id="cancel-folder-rename-button">CANCEL</button>
+                    <button type="submit" class="submit-rename-folder-button"
+                        id="submit-rename-folder-button">RENAME</button>
+                </form>
+            </dialog>
             <% }) %>
 
 
@@ -118,12 +118,18 @@
                                 <form action="/drive/del/file/<%= file.id %>" method="post" class="delete-file-form">
                                     <button type="submit">Delete</button>
                                 </form>
-                                <p class="menu-rename-file" data-file-id="<%= file.id %>" data-file-name = "<%= file.name %>">Rename</p>
+
+                                 <form action="/drive/download/file/<%= file.id %>" method="post" class="download-file-form">
+                                    <button type="submit">download</button>
+                                </form>
+
+                                <p class="menu-rename-file" data-file-id="<%= file.id %>"
+                                    data-file-name="<%= file.name %>">Rename</p>
                                 <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
                             </div>
 
 
-                        
+
                         </div>
                     </a>
                     <dialog class="file-rename-dialog">
@@ -132,6 +138,8 @@
                             <div>
                                 <input type="text" name="file-rename" id="file-rename">
                             </div>
+
+
                             <button type="reset" class="cancel-file-rename-button"
                                 id="cancel-file-rename-button">CANCEL</button>
                             <button type="submit" class="submit-rename-file-button"

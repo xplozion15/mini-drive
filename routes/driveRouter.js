@@ -13,6 +13,7 @@ driveRouter.post("/newfolder",driveControllers.postNewFolderToDb);
 driveRouter.post("/del/:folderId",driveControllers.deleteFolderFromDb);
 driveRouter.post("/del/file/:fileId",driveControllers.deleteFileFromDb);
 driveRouter.post("/rename/file/:fileId",driveControllers.renameFileInDb)
+driveRouter.post("/download/file/:fileId",driveControllers.downloadFile)
 driveRouter.post("/rename/:folderId",driveControllers.renameFolderInDb);
 
 module.exports = {driveRouter}
