@@ -72,7 +72,11 @@
                             rename</p>
                     </div>
 
-                    <dialog class="folder-rename-dialog">
+                    
+
+                </div>
+            </a>
+            <dialog class="folder-rename-dialog">
                         <form action="/drive/rename/<%= folder.id %>" method="post">
                             <input type="text" name="folder-id" id="folder-id" hidden>
                             <div>
@@ -84,15 +88,12 @@
                                 id="submit-rename-folder-button">RENAME</button>
                         </form>
                     </dialog>
-
-                </div>
-            </a>
             <% }) %>
 
 
                 <% files.forEach((file)=>{ %>
                     <a href="">
-                        <div class="file-div">
+                        <div class="file-div" data-file-id="<%= file.id %>">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -114,11 +115,29 @@
                             </svg>
 
                             <div class="file-options-dialog">
-                                <p>file options dialog hehe</p>
+                                <form action="/drive/del/file/<%= file.id %>" method="post" class="delete-file-form">
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <p class="menu-rename-file" data-file-id="<%= file.id %>" data-file-name = "<%= file.name %>">Rename</p>
+                                <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
                             </div>
 
+
+                        
                         </div>
                     </a>
+                    <dialog class="file-rename-dialog">
+                        <form action="/drive/rename/file/<%= file.id %>" method="post">
+                            <input type="text" name="file-id" id="file-id" hidden>
+                            <div>
+                                <input type="text" name="file-rename" id="file-rename">
+                            </div>
+                            <button type="reset" class="cancel-file-rename-button"
+                                id="cancel-file-rename-button">CANCEL</button>
+                            <button type="submit" class="submit-rename-file-button"
+                                id="submit-rename-file-button">RENAME</button>
+                        </form>
+                    </dialog>
                     <% }) %>
 
 

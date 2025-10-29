@@ -1,5 +1,6 @@
 let newFolderButton = document.querySelector(".new-folder-button");
 let deleteFolderForms = document.querySelectorAll(".delete-folder-form");
+let deleteFileForms = document.querySelectorAll(".delete-file-form");
 let createFolderDialog = document.querySelector(".create-folder-dialog");
 let createNewFolderButton = document.querySelector(".create-new-folder-button");
 let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
@@ -7,9 +8,15 @@ let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
 let folderDivs = document.querySelectorAll(".folder-div");
 let fileDivs = document.querySelectorAll(".file-div");
 let renameFolderButtons = document.querySelectorAll(".menu-rename");
+let renameFileButtons  = document.querySelectorAll(".menu-rename-file")
+let detailsFileButtons = document.querySelectorAll(".details-file-button");
 let folderRenameDialog = document.querySelector(".folder-rename-dialog");
+let fileRenameDialog = document.querySelector(".file-rename-dialog");
 let cancelFolderRenameButton = document.querySelector(
   "#cancel-folder-rename-button",
+);
+let cancelFileRenameButton = document.querySelector(
+  "#cancel-file-rename-button",
 );
 let uploadFileButton = document.querySelector(".upload-file-button");
 let fileUploadDialog = document.querySelector(".file-upload-dialog");
@@ -43,9 +50,29 @@ renameFolderButtons.forEach((renameButton) => {
   });
 });
 
+renameFileButtons.forEach((renameButton) => {
+  renameButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const fileId = renameButton.dataset.fileId;
+    const fileName = renameButton.dataset.fileName;
+
+    fileRenameDialog.showModal();
+    document.querySelector("#file-id").value = fileId;
+    document.querySelector("#file-rename").value = fileName;
+  });
+});
+
+
 cancelFolderRenameButton.addEventListener("click", (event) => {
   event.stopPropagation();
   document.querySelector(".folder-rename-dialog").close();
+});
+
+cancelFileRenameButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  document.querySelector(".file-rename-dialog").close();
 });
 
 deleteFolderForms.forEach((form) => {
@@ -53,6 +80,14 @@ deleteFolderForms.forEach((form) => {
     event.stopPropagation();
 
     // event.preventDefault();
+  });
+});
+
+
+
+deleteFileForms.forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.stopPropagation();
   });
 });
 
@@ -99,5 +134,16 @@ fileDivs.forEach((file) => {
         .forEach((dialog) => (dialog.style.visibility = "hidden"));
       dialog.style.visibility = "visible";
     }
+  });
+});
+
+
+detailsFileButtons.forEach((detailButton) => {
+  detailButton.addEventListener("click", (event) => {
+    const fileId = Number(detailButton.dataset.fileId);
+    event.stopPropagation();
+    event.preventDefault();
+    window.location.href = `/drive/file/details/${fileId}`;
+    
   });
 });

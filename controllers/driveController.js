@@ -17,11 +17,13 @@ async function showdrivePage(req, res) {
 async function showFolderPage(req, res) {
   const parentFolderId = Number(req.params.folderId);
 
-  if (!req.user) {   // if user is not logged in then redirect to login page//
+  if (!req.user) {
+    // if user is not logged in then redirect to login page//
     return res.redirect("/login");
   }
 
-  const folders = await prisma.folder.findMany({  // get the folders
+  const folders = await prisma.folder.findMany({
+    // get the folders
     where: {
       userId: req.user.id,
       parentId: parentFolderId,
@@ -32,18 +34,18 @@ async function showFolderPage(req, res) {
   });
 
   const files = await prisma.file.findMany({
-    where : {
-      folderId : parentFolderId,
+    where: {
+      folderId: parentFolderId,
     },
-    orderBy : {
-      createdAt : "desc",
-    }
-  })
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return res.render("folderPage", {
     folders: folders,
     parentFolderId: parentFolderId,
-    files : files,
+    files: files,
   });
 }
 
@@ -128,10 +130,88 @@ async function renameFolderInDb(req, res) {
   res.redirect(`/drive/${folder.parentId}`);
 }
 
+// deleteFileFromDb
+
+async function deleteFileFromDb(req, res) {
+  const fileId = Number(req.params.fileId);
+
+  const file = await prisma.file.findUnique({
+    //doing this to get the parent folder id of the file to use in the redirect url after deleing file
+    where: {
+      id: fileId,
+    },
+    select: {
+      folderId: true,
+    },
+  });
+
+  await prisma.file.delete({
+    //del the file
+    where: {
+      id: fileId,
+    },
+  });
+
+  res.redirect(`/drive/${file.folderId}`);
+}
+
+async function showFileDetails(req, res) {
+  const fileId = Number(req.params.fileId);
+
+  const file = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+    },
+    select: {
+      name: true,
+      path: true,
+      size: true,
+      createdAt: true,
+      fileType: true,
+    },
+  });
+
+  res.render("fileDetails", { file: file });
+}
+
+async function renameFileInDb(req, res) {
+  if (!req.user) {
+    //check if user is logged in or not
+    return res.redirect("/login");
+  }
+
+  const fileId = Number(req.body["file-id"]);
+  const newFileName = req.body["file-rename"];
+
+  const file = await prisma.file.findUnique({
+    // returning file details to get parent folder id for the res.redirect url
+    where: {
+      id: fileId,
+    },
+    select: {
+      folderId: true,
+    },
+  });
+
+  await prisma.file.update({
+    where: {
+      id: fileId,
+    },
+    data: {
+      name: newFileName,
+    },
+  });
+
+  res.redirect(`/drive/${file.folderId}`);
+}
+
 module.exports = {
   showdrivePage,
   showFolderPage,
   postNewFolderToDb,
   deleteFolderFromDb,
   renameFolderInDb,
+  deleteFileFromDb,
+  showFileDetails,
+  renameFileInDb
 };
