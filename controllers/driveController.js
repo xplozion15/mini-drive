@@ -1,6 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const path = require("path");
 
 async function showdrivePage(req, res) {
   if (!req.user) {
@@ -206,33 +205,28 @@ async function renameFileInDb(req, res) {
   res.redirect(`/drive/${file.folderId}`);
 }
 
-async function downloadFile(req,res) {
-
-    const options = {
-    root: '/home/xplozion/mini-drive',
-    dotfiles: 'deny',
+async function downloadFile(req, res) {
+  const options = {
+    root: "/home/xplozion/mini-drive",
+    dotfiles: "deny",
     headers: {
-      'x-timestamp': Date.now(),
-      'x-sent': true,
-      'Content-Disposition': 'inline', 
-    }
-  }
+      "x-timestamp": Date.now(),
+      "x-sent": true,
+      "Content-Disposition": "inline",
+    },
+  };
 
-
-    const fileId = Number(req.params.fileId);
-
-    const file = await prisma.file.findUnique({
-      where : {
-        id : fileId
-      },
-      select : {
-        path : true
-      }
-    })
-    
-    res.sendFile(file.path,options);
-} 
-
+  const fileId = Number(req.params.fileId);
+  const file = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+    },
+    select: {
+      path: true,
+    },
+  });
+  res.sendFile(file.path, options);
+}
 
 module.exports = {
   showdrivePage,
@@ -243,5 +237,5 @@ module.exports = {
   deleteFileFromDb,
   showFileDetails,
   renameFileInDb,
-  downloadFile
+  downloadFile,
 };

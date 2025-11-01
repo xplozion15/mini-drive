@@ -1,13 +1,9 @@
-
-
-function showIndexPage(req,res) {
-    res.render("index");
-
+function showIndexPage(req, res) {
+  res.render("index");
 }
 
-function showLoginPage(req,res) {
-    res.render("loginPage")
+function showLoginPage(req, res) {
+  res.render("loginPage");
 }
 
-
-module.exports = {showIndexPage,showLoginPage};
+module.exports = { showIndexPage, showLoginPage };

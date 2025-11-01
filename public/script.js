@@ -8,7 +8,7 @@ let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
 let folderDivs = document.querySelectorAll(".folder-div");
 let fileDivs = document.querySelectorAll(".file-div");
 let renameFolderButtons = document.querySelectorAll(".menu-rename");
-let renameFileButtons  = document.querySelectorAll(".menu-rename-file")
+let renameFileButtons = document.querySelectorAll(".menu-rename-file");
 let detailsFileButtons = document.querySelectorAll(".details-file-button");
 let folderRenameDialog = document.querySelector(".folder-rename-dialog");
 let fileRenameDialog = document.querySelector(".file-rename-dialog");
@@ -64,7 +64,6 @@ renameFileButtons.forEach((renameButton) => {
   });
 });
 
-
 cancelFolderRenameButton.addEventListener("click", (event) => {
   event.stopPropagation();
   document.querySelector(".folder-rename-dialog").close();
@@ -82,8 +81,6 @@ deleteFolderForms.forEach((form) => {
     // event.preventDefault();
   });
 });
-
-
 
 deleteFileForms.forEach((form) => {
   form.addEventListener("submit", (event) => {
@@ -137,13 +134,11 @@ fileDivs.forEach((file) => {
   });
 });
 
-
 detailsFileButtons.forEach((detailButton) => {
   detailButton.addEventListener("click", (event) => {
     const fileId = Number(detailButton.dataset.fileId);
     event.stopPropagation();
     event.preventDefault();
     window.location.href = `/drive/file/details/${fileId}`;
-    
   });
 });

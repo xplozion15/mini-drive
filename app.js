@@ -120,8 +120,7 @@ app.post(
 
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
-    res.redirect(`/drive/${parentFolderId}`);   //refresh the same page//
-
+    res.redirect(`/drive/${parentFolderId}`); //refresh the same page//
   },
 );
 
