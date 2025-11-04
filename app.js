@@ -12,7 +12,11 @@ const passport = require("passport");
 const { driveRouter } = require("./routes/driveRouter");
 const prisma = new PrismaClient();
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+
+
+const {uploadFile} = require("./utils/supabaseUpload");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -107,12 +111,16 @@ app.post(
     const parentFolderId = Number(req.params.parentFolderId);
     const file = req.file;
     console.log(file);
+  
+    const uploadedFile = await uploadFile(file,req.user.id,parentFolderId);
+    const uploadedFilePath = uploadedFile.path;
+
 
     await prisma.file.create({
       data: {
         name: file.originalname,
         folderId: parentFolderId,
-        path: file.path,
+        path: uploadedFilePath,
         size: file.size,
         fileType: file.mimetype,
       },
@@ -138,6 +146,7 @@ const uploadMiddleware = upload.fields([
   { name: "avatar", maxCount: 1 },
   { name: "gallery", maxCount: 8 },
 ]);
+
 app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
   // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
   //
@@ -146,6 +155,7 @@ app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
   //  req.files['gallery'] -> Array
   //
   // req.body will contain the text fields, if there were any
+  
 });
 
 app.listen(port, () => {
