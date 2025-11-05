@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const {supabase} = require("../utils/supabaseUpload");
+const { supabase } = require("../utils/supabaseUpload");
 
 async function showdrivePage(req, res) {
   if (!req.user) {
@@ -87,8 +87,8 @@ async function deleteFolderFromDb(req, res) {
     },
   });
 
+  //del the folder tied to the user
   await prisma.folder.delete({
-    //del the folder tied to the user
     where: {
       id: folderId,
       userId: userId,
@@ -132,12 +132,12 @@ async function renameFolderInDb(req, res) {
 }
 
 // deleteFileFromDb
-
 async function deleteFileFromDb(req, res) {
   const fileId = Number(req.params.fileId);
 
+  //doing this to get the parent folder id of the file to use in the redirect url after deleing file
+  //get detals of file
   const file = await prisma.file.findUnique({
-    //doing this to get the parent folder id of the file to use in the redirect url after deleing file
     where: {
       id: fileId,
     },
@@ -225,16 +225,11 @@ async function renameFileInDb(req, res) {
 }
 
 async function downloadFile(req, res) {
-  const options = {
-    root: "/home/xplozion/mini-drive",
-    dotfiles: "deny",
-    headers: {
-      "x-timestamp": Date.now(),
-      "x-sent": true,
-      "Content-Disposition": "inline",
-    },
-  };
+  if (!req.user) {
+    return res.redirect("/login");
+  }
 
+  const userId = req.user.id;
   const fileId = Number(req.params.fileId);
   const file = await prisma.file.findUnique({
     where: {
@@ -242,9 +237,23 @@ async function downloadFile(req, res) {
     },
     select: {
       path: true,
+      folderId: true,
+      name: true,
     },
   });
-  res.sendFile(file.path, options);
+
+  const { data, error } = await supabase.storage
+    .from("mini-drive")
+    .download(`file/${userId}/${file.folderId}/${file.name}`);
+  console.log(data);
+
+  const arrayBuffer = await data.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  res.setHeader("Content-Type", data.type || "application/octet-stream");
+  res.setHeader("Content-Length", buffer.length);
+  res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+  res.end(buffer);
 }
 
 module.exports = {
