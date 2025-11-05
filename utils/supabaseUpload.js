@@ -24,4 +24,4 @@ async function uploadFile(file,userId,parentFolderId) {
   }
 }
 
-module.exports = { uploadFile };
+module.exports = { uploadFile,supabase };

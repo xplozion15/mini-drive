@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {supabase} = require("../utils/supabaseUpload");
 
 async function showdrivePage(req, res) {
   if (!req.user) {
@@ -175,24 +176,32 @@ async function showFileDetails(req, res) {
 }
 
 async function renameFileInDb(req, res) {
+  //check if user is logged in or not
   if (!req.user) {
-    //check if user is logged in or not
     return res.redirect("/login");
   }
 
+  // fileid,new file name and user id
   const fileId = Number(req.body["file-id"]);
   const newFileName = req.body["file-rename"];
+  const userId = req.user.id;
 
+  //getting file details
   const file = await prisma.file.findUnique({
-    // returning file details to get parent folder id for the res.redirect url
     where: {
       id: fileId,
     },
     select: {
       folderId: true,
+      name: true,
     },
   });
 
+  //old file name and folder id details
+  const oldFileName = file.name;
+  const folderId = file.folderId;
+
+  // update file name in db
   await prisma.file.update({
     where: {
       id: fileId,
@@ -202,6 +211,16 @@ async function renameFileInDb(req, res) {
     },
   });
 
+  // update file name in supabase storage
+  // Move and rename files
+  const { data, error } = await supabase.storage
+    .from("mini-drive")
+    .move(
+      `file/${userId}/${folderId}/${oldFileName}`,
+      `file/${userId}/${folderId}/${newFileName}`,
+    );
+
+  //redirecting to the current folder
   res.redirect(`/drive/${file.folderId}`);
 }
 
