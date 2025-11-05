@@ -12,6 +12,7 @@ async function uploadFile(file,userId,parentFolderId) {
     .from("mini-drive")
     .upload(`file/${userId}/${parentFolderId}/${file.originalname}`, file.buffer,{
       contentType : file.mimetype,
+      upsert:true,
     });
   if (error) {
     // Handle error

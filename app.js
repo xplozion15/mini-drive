@@ -12,11 +12,10 @@ const passport = require("passport");
 const { driveRouter } = require("./routes/driveRouter");
 const prisma = new PrismaClient();
 const multer = require("multer");
-const storage = multer.memoryStorage()
-const upload = multer({ storage: storage })
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-
-const {uploadFile} = require("./utils/supabaseUpload");
+const { uploadFile } = require("./utils/supabaseUpload");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -111,26 +110,48 @@ app.post(
     const parentFolderId = Number(req.params.parentFolderId);
     const file = req.file;
     console.log(file);
-  
-    const uploadedFile = await uploadFile(file,req.user.id,parentFolderId);
+
+    const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
     const uploadedFilePath = uploadedFile.path;
 
-
-    await prisma.file.create({
-      data: {
+    // Check if file already exists in same folder
+    const existingFile = await prisma.file.findFirst({
+      where: {
         name: file.originalname,
         folderId: parentFolderId,
-        path: uploadedFilePath,
-        size: file.size,
-        fileType: file.mimetype,
       },
     });
 
+    // update if file already exists and create one if it doesnt
+    if (existingFile) {
+      await prisma.file.update({
+        where: {
+          id: existingFile.id,
+        },
+        data: {
+          name: file.originalname,
+          path: uploadedFilePath,
+          size: file.size,
+          fileType: file.mimetype,
+        },
+      });
+    } else {
+      await prisma.file.create({
+        data: {
+          name: file.originalname,
+          folderId: parentFolderId,
+          path: uploadedFilePath,
+          size: file.size,
+          fileType: file.mimetype,
+        },
+      });
+    }
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
     res.redirect(`/drive/${parentFolderId}`); //refresh the same page//
-  },
+  }
 );
+
 
 app.post(
   "/photos/upload",
@@ -155,7 +176,6 @@ app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
   //  req.files['gallery'] -> Array
   //
   // req.body will contain the text fields, if there were any
-  
 });
 
 app.listen(port, () => {
