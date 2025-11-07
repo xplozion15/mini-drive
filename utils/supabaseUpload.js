@@ -7,12 +7,18 @@ const supabase = createClient(
 );
 
 // Upload file using standard upload
-async function uploadFile(file,userId,parentFolderId) {
+async function uploadFile(file, userId, parentFolderId) {
+  
+  const path =
+    parentFolderId === null
+      ? `file/${userId}/${file.originalname}`
+      : `file/${userId}/${parentFolderId}/${file.originalname}`;
+
   const { data, error } = await supabase.storage
     .from("mini-drive")
-    .upload(`file/${userId}/${parentFolderId}/${file.originalname}`, file.buffer,{
-      contentType : file.mimetype,
-      upsert:true,
+    .upload(path, file.buffer, {
+      contentType: file.mimetype,
+      upsert: true,
     });
   if (error) {
     // Handle error
@@ -20,9 +26,9 @@ async function uploadFile(file,userId,parentFolderId) {
   } else {
     // Handle success
     console.log("sucessfully uploaded the file to supabase");
-    
+
     return data;
   }
 }
 
-module.exports = { uploadFile,supabase };
+module.exports = { uploadFile, supabase };

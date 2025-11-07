@@ -44,6 +44,65 @@
         </a>
         <% }) %>
 
+        <% files.forEach((file)=>{ %>
+                    <a href="">
+                        <div class="file-div" data-file-id="<%= file.id %>">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-file-icon lucide-file">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            </svg>
+
+                            <p>
+                                <%= file.name %>
+                            </p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical three-dots-icon">
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="12" cy="5" r="1" />
+                                <circle cx="12" cy="19" r="1" />
+                            </svg>
+
+                            <div class="file-options-dialog">
+                                <form action="/drive/del/file/<%= file.id %>" method="post" class="delete-file-form">
+                                    <button type="submit">Delete</button>
+                                </form>
+
+                                <form action="/drive/download/file/<%= file.id %>" method="post"
+                                    class="download-file-form">
+                                    <button type="submit">download</button>
+                                </form>
+
+                                <p class="menu-rename-file" data-file-id="<%= file.id %>"
+                                    data-file-name="<%= file.name %>">Rename</p>
+                                <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
+                            </div>
+
+
+
+                        </div>
+                    </a>
+                    <dialog class="file-rename-dialog">
+                        <form action="/drive/rename/file/<%= file.id %>" method="post">
+                            <input type="text" name="file-id" id="file-id" hidden>
+                            <div>
+                                <input type="text" name="file-rename" id="file-rename">
+                            </div>
+
+
+                            <button type="reset" class="cancel-file-rename-button"
+                                id="cancel-file-rename-button">CANCEL</button>
+                            <button type="submit" class="submit-rename-file-button"
+                                id="submit-rename-file-button">RENAME</button>
+                        </form>
+                    </dialog>
+                    <% }) %>
+
+
             <dialog class="create-folder-dialog">
                 <form action="/drive/newfolder" method="post">
                     <div>
@@ -56,27 +115,20 @@
             </dialog>
 
 
-            <script>
-                let newFolderButton = document.querySelector(".new-folder-button");
-                let createFolderDialog = document.querySelector(".create-folder-dialog");
-                let createNewFolderButton = document.querySelector(".create-new-folder-button");
-                let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
+            <!--  dialog for file  upload -->
+            <dialog class="file-upload-dialog">
+                <form action="/profile" method="post" enctype="multipart/form-data">
+                    <input type="file" name="avatar" />
+                    <div>
+                        <button type="button" class="file-upload-cancel-button">CANCEL</button>
+                        <button type="submit" class="file-upload-send-button">SEND</button>
+                    </div>
+                </form>
+            </dialog>
 
-                newFolderButton.addEventListener("click", () => {
-                    // window.location.href = "/drive/newfolder"; 
-                    //instead of href make a modal
-                    createFolderDialog.showModal();
-                })
+            <script src="/script1.js"></script>
 
-                createNewFolderButton.addEventListener("click", () => {
-                    createFolderDialog.close();
-                })
 
-                cancelNewFolderButton.addEventListener("click", () => {
-                    createFolderDialog.close();
-                })
-
-            </script>
 </body>
 
 </html>

@@ -103,6 +103,58 @@ app.get(
   },
 );
 
+
+app.post(
+  "/profile/",
+  upload.single("avatar"),
+  async function (req, res, next) {
+    const parentFolderId = null;
+    const file = req.file;
+    console.log(file);
+
+    const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
+    const uploadedFilePath = uploadedFile.path;
+
+    // Check if file already exists in same folder
+    const existingFile = await prisma.file.findFirst({
+      where: {
+        name: file.originalname,
+        folderId: parentFolderId,
+      },
+    });
+
+    // update if file already exists and create one if it doesnt
+    if (existingFile) {
+      await prisma.file.update({
+        where: {
+          id: existingFile.id,
+        },
+        data: {
+          name: file.originalname,
+          path: uploadedFilePath,
+          size: file.size,
+          fileType: file.mimetype,
+        },
+      });
+    } else {
+      await prisma.file.create({
+        data: {
+          name: file.originalname,
+          folderId: parentFolderId,
+          path: uploadedFilePath,
+          size: file.size,
+          fileType: file.mimetype,
+          userId : req.user.id,
+        },
+      });
+    }
+    // req.file is the `avatar` file
+    // req.body will hold the text fields, if there were any
+    res.redirect(`/drive`); //refresh the same page//
+  }
+);
+
+
 app.post(
   "/profile/:parentFolderId",
   upload.single("avatar"),
@@ -143,6 +195,7 @@ app.post(
           path: uploadedFilePath,
           size: file.size,
           fileType: file.mimetype,
+          userId : req.user.id
         },
       });
     }

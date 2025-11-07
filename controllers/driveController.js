@@ -9,10 +9,22 @@ async function showdrivePage(req, res) {
   }
 
   const folders = await prisma.folder.findMany({
-    where: { userId: req.user.id, parentId: null },
+    where: { userId: Number(req.user.id), parentId: null },
+     orderBy: {
+      createdAt: "desc",
+    },
   });
 
-  res.render("drive", { folders: folders });
+   const files = await prisma.file.findMany({
+    where: {
+      folderId: null,
+      userId : Number(req.user.id),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  res.render("drive", { folders: folders,files:files, });
 }
 
 async function showFolderPage(req, res) {
@@ -26,7 +38,7 @@ async function showFolderPage(req, res) {
   const folders = await prisma.folder.findMany({
     // get the folders
     where: {
-      userId: req.user.id,
+      userId: Number(req.user.id),
       parentId: parentFolderId,
     },
     orderBy: {

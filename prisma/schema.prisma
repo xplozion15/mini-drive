@@ -41,13 +41,13 @@ model Folder {
 }
 
 model File {
-  id       Int    @id @default(autoincrement())
-  name     String
-  folder   Folder @relation(fields: [folderId], references: [id])
-  folderId Int
-  path     String 
-  size     Int
+  id        Int      @id @default(autoincrement())
+  userId    Int       
+  name      String
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+  folderId  Int?
+  path      String
+  size      Int
   createdAt DateTime @default(now())
-  fileType String 
-
+  fileType  String
 }
