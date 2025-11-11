@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <%- include('navbar', {}) %>
     <h2>your drive</h2>
     <button class="new-folder-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -27,24 +28,58 @@
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
         </svg> UPLOAD FILE</button>
 
-    <% folders.forEach((folder)=> { %>
-        <a href="/drive/<%= folder.id %>">
-            <div class="folder-div" data-folder-id="<%= folder.id %>">
-                <p>
-                    <%= folder.name %>
-                </p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical three-dots-icon">
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="12" cy="5" r="1" />
-                    <circle cx="12" cy="19" r="1" />
-                </svg>
-            </div>
-        </a>
-        <% }) %>
 
-        <% files.forEach((file)=>{ %>
+
+    <div class="folder-and-files-div">
+        <% folders.forEach((folder)=> { %>
+            <a href="/drive/<%= folder.id %>">
+
+                <div class="folder-div" data-folder-id="<%= folder.id %>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-folder-icon lucide-folder">
+                        <path
+                            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+                    </svg>
+                    <p>
+                        <%= folder.name %>
+                    </p>
+
+
+                    <div>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-folder-pen-icon lucide-folder-pen">
+                            <path
+                                d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
+                            <path
+                                d="M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-trash-icon lucide-trash">
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                            <path d="M3 6h18" />
+                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                    </div>
+
+                    <div class="folder-options-dialog">
+                        <form action="/drive/del/<%= folder.id %>" method="post" class="delete-folder-form">
+                            <button type="submit" class="menu-delete" data-folder-id="<%= folder.id %>">delete</button>
+                        </form>
+                        <p class="menu-rename" data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">
+                            rename</p>
+                    </div>
+
+                </div>
+            </a>
+
+            <% }) %>
+
+                <% files.forEach((file)=>{ %>
                     <a href="">
                         <div class="file-div" data-file-id="<%= file.id %>">
 
@@ -78,7 +113,8 @@
                                 </form>
 
                                 <p class="menu-rename-file" data-file-id="<%= file.id %>"
-                                    data-file-name="<%= file.name %>">Rename</p>
+                                    data-file-name="<%= file.name %>">
+                                    Rename</p>
                                 <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
                             </div>
 
@@ -101,32 +137,33 @@
                         </form>
                     </dialog>
                     <% }) %>
+    </div>
 
 
-            <dialog class="create-folder-dialog">
-                <form action="/drive/newfolder" method="post">
-                    <div>
-                        <label for="folder-name">Name?</label>
-                        <input type="text" name="folder-name" id="folder-name">
-                    </div>
-                    <button type="reset" class="cancel-new-folder-button">CANCEL</button>
-                    <button type="submit" class="create-new-folder-button">CREATE</button>
-                </form>
-            </dialog>
+    <dialog class="create-folder-dialog">
+        <form action="/drive/newfolder" method="post">
+            <div>
+                <label for="folder-name">Name?</label>
+                <input type="text" name="folder-name" id="folder-name">
+            </div>
+            <button type="reset" class="cancel-new-folder-button">CANCEL</button>
+            <button type="submit" class="create-new-folder-button">CREATE</button>
+        </form>
+    </dialog>
 
 
-            <!--  dialog for file  upload -->
-            <dialog class="file-upload-dialog">
-                <form action="/profile" method="post" enctype="multipart/form-data">
-                    <input type="file" name="avatar" />
-                    <div>
-                        <button type="button" class="file-upload-cancel-button">CANCEL</button>
-                        <button type="submit" class="file-upload-send-button">SEND</button>
-                    </div>
-                </form>
-            </dialog>
-
-            <script src="/script1.js"></script>
+    <!--  dialog for file  upload -->
+    <dialog class="file-upload-dialog">
+        <form action="/profile" method="post" enctype="multipart/form-data">
+            <input type="file" name="avatar" />
+            <div>
+                <button type="button" class="file-upload-cancel-button">CANCEL</button>
+                <button type="submit" class="file-upload-send-button">SEND</button>
+            </div>
+        </form>
+    </dialog>
+    
+    <script src="/script1.js"></script>
 
 
 </body>

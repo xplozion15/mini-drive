@@ -96,43 +96,48 @@ cancelNewFolderButton.addEventListener("click", () => {
   createFolderDialog.close();
 });
 
-folderDivs.forEach((folder) => {
-  const threeDots = folder.querySelector(".three-dots-icon");
-  const dialog = folder.querySelector(".folder-options-dialog");
+if (folderDivs.length > 0) {
+  folderDivs.forEach((folder) => {
+    const threeDots = folder.querySelector(".three-dots-icon");
+    const dialog = folder.querySelector(".folder-options-dialog");
 
-  threeDots.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation(); //event delegation
+    threeDots.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      //event delegation
 
-    if (dialog.style.visibility === "visible") {
-      dialog.style.visibility = "hidden";
-    } else {
-      document
-        .querySelectorAll(".folder-options-dialog")
-        .forEach((dialog) => (dialog.style.visibility = "hidden"));
-      dialog.style.visibility = "visible";
-    }
+      if (dialog.style.visibility === "visible") {
+        dialog.style.visibility = "hidden";
+      } else {
+        document
+          .querySelectorAll(".folder-options-dialog")
+          .forEach((dialog) => (dialog.style.visibility = "hidden"));
+        dialog.style.visibility = "visible";
+      }
+    });
   });
-});
+}
 
-fileDivs.forEach((file) => {
-  const threeDots = file.querySelector(".three-dots-icon");
-  const dialog = file.querySelector(".file-options-dialog");
+if (fileDivs.length > 0) {
+  fileDivs.forEach((file) => {
+    const threeDots = file.querySelector(".three-dots-icon");
+    const dialog = file.querySelector(".file-options-dialog");
 
-  threeDots.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation(); //event delegation
+    threeDots.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation(); //event delegation
 
-    if (dialog.style.visibility === "visible") {
-      dialog.style.visibility = "hidden";
-    } else {
-      document
-        .querySelectorAll(".file-options-dialog")
-        .forEach((dialog) => (dialog.style.visibility = "hidden"));
-      dialog.style.visibility = "visible";
-    }
+      if (dialog.style.visibility === "visible") {
+        dialog.style.visibility = "hidden";
+      } else {
+        document
+          .querySelectorAll(".file-options-dialog")
+          .forEach((dialog) => (dialog.style.visibility = "hidden"));
+        dialog.style.visibility = "visible";
+      }
+    });
   });
-});
+}
 
 detailsFileButtons.forEach((detailButton) => {
   detailButton.addEventListener("click", (event) => {

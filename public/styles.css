@@ -1,39 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  
+  
+}
+
+body {
+  background-color: #26262b;
+}
+
+
+.logo {
+ color: #f56565;
+ font-weight: 800;
+ font-size: calc(0.6rem + 1.6vw);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  color: white;
+  height: 4rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.username-and-logout-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+   font-size: calc(0.5rem + 1vw);
+}
+
 a {
   display: inline-block;
   width: 14rem;
   flex-direction: row;
-  color: white;
-  background-color: cornflowerblue;
+  color: black;
+  background-color: white;
   /* border: 2px solid lightskyblue; */
   border-radius: 1rem;
   text-decoration: none;
   font-weight: 600;
 }
 
-.folder-and-files-container {
-  padding: 1rem;
-  margin: 1rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-  width: 70vw;
-  height: auto;
-  /* border: 2px solid red; */
+.folder-and-files-div {
+  
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 70vw;
+    margin: auto;
 }
 
 .folder-div {
+  background-color: #f56565;
   padding: 0.2rem;
+  width: 70vw;
   display: flex;
   position: relative;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .file-div {
   padding: 0.2rem;
-  width: 100%;
+  width: 70vw;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -74,3 +117,10 @@ a {
 
 
 
+
+
+
+footer {
+  background-color: #141416;
+  height: 10rem;
+}
