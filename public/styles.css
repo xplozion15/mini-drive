@@ -1,6 +1,5 @@
 * {
-  margin: 0;
-  padding: 0;
+
   box-sizing: border-box;
   font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
@@ -9,9 +8,13 @@
 }
 
 body {
-  background-color: #26262b;
+  background-color: #19191b;
+  
 }
 
+dialog {
+  box-shadow: 0 0 10px 500vw rgba(0, 0, 0, 0.6);
+}
 
 .logo {
  color: #f56565;
@@ -21,13 +24,19 @@ body {
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   width: 100%;
   margin: auto;
   color: white;
-  height: 4rem;
+  height: 4.5rem;
   padding: 1rem;
   align-items: center;
+}
+
+.username {
+  font-weight: 600;
+  
+ 
 }
 
 .username-and-logout-div {
@@ -51,6 +60,36 @@ a {
   font-weight: 600;
 }
 
+
+
+.login-button-hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 15rem;
+  padding: 0.1rem;
+  height: 3.5rem;
+}
+
+.google-icon {
+  width: 3rem;
+  height:auto;
+}
+
+
+.welcome-heading {
+  font-size: calc(1rem + 2vw);
+  font-weight: 600;
+  margin: 0;
+}
+
+.welcome-paragraph {
+    font-size: calc(0.5rem + 1vw);
+  font-weight: 200;
+  margin: 0;
+}
+
 .folder-and-files-div {
   
     height: fit-content;
@@ -62,6 +101,29 @@ a {
     margin: auto;
 }
 
+
+.folder-icon-name-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-name-icon-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-options-icons-div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+}
+
+
 .folder-div {
   background-color: #f56565;
   padding: 0.2rem;
@@ -71,23 +133,86 @@ a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: auto;
+  height:4rem;
+  border-radius: 1rem;
+    border: 2px solid #f56565;
   
 }
 
-.file-div {
-  padding: 0.2rem;
-  width: 70vw;
-  height: 100%;
+.folder-div:hover {
+  background-color: #dc4343;
+  border: 2px solid #dc4343;
+  transition: background-color 500ms, border 500ms;
+  
+}
+
+
+.hero-section {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  background-color: cornflowerblue;
-  border-radius: 1rem;
-  font-size: 0.7rem;
-  position: relative;
+  justify-content: center;
+  width: 100%;
+  height: 40rem;
+  /* border: 2px solid yellow; */
+  gap: 2rem;
 }
 
+.hero-section-left-side {
+  /* border: 2px solid yellow; */
+  width: 40%;
+  height: 80%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-section-right-side {
+  /* border: 2px solid yellow; */
+  width: 40%;
+}
+
+.hero-image {
+  width: 120%;
+  height: auto;
+}
+
+.drive-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 10rem;
+  height: 3rem;
+}
+
+
+.file-div {
+  background-color: cornflowerblue;
+  font-size: 0.7rem;
+  position: relative;
+  padding: 0.2rem;
+  width: 70vw;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  height:4rem;
+  border-radius: 1rem;
+  border: 2px solid cornflowerblue;
+}
+
+
+
+.file-div:hover {
+  background-color: rgb(16, 69, 168);
+  border: 2px solid rgb(16, 69, 168);
+  transition: background-color 500ms, border 500ms;
+  
+}
 .folder-title-div {
   display: flex;
   align-items: center;
@@ -115,7 +240,45 @@ a {
 }
 
 
+.button-container {
+  width: 70vw;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  margin: auto;
+  /* border: 2px solid white; */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 
+
+.new-folder-button,.upload-file-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 2px solid white;
+  color: black;
+  width: 10rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.folder-div-options-icons-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.5rem;
+  
+}
 
 
 
