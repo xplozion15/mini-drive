@@ -5,9 +5,18 @@ let cancelNewFolderButton = document.querySelector(".cancel-new-folder-button");
 let uploadFileButton = document.querySelector(".upload-file-button");
 let fileUploadDialog = document.querySelector(".file-upload-dialog");
 // let fileUploadSendButton = document.querySelector(".file-upload-send-button");
-let fileUploadCancelButton = document.querySelector(".file-upload-cancel-button");
+let fileUploadCancelButton = document.querySelector(
+  ".file-upload-cancel-button",
+);
+
+let cancelFolderRenameButton  = document.querySelector(".cancel-folder-rename-button");
+let cancelFileRenameButton  = document.querySelector(".cancel-file-rename-button");
+
+
 let folderDivs = document.querySelectorAll(".folder-div");
 let fileDivs = document.querySelectorAll(".file-div");
+
+
 
 
 
@@ -25,54 +34,63 @@ cancelNewFolderButton.addEventListener("click", () => {
   createFolderDialog.close();
 });
 
-uploadFileButton.addEventListener("click",()=>{
-    fileUploadDialog.showModal();
-})
+uploadFileButton.addEventListener("click", () => {
+  fileUploadDialog.showModal();
+});
 
-
-fileUploadCancelButton.addEventListener("click",()=>{
-    fileUploadDialog.close();
-})
-
-
-
+fileUploadCancelButton.addEventListener("click", () => {
+  fileUploadDialog.close();
+});
 
 folderDivs.forEach((folder) => {
-  const threeDots = folder.querySelector(".three-dots-icon");
-  const dialog = folder.querySelector(".folder-options-dialog");
+    let folderRenameDialog = document.querySelector(".folder-rename-dialog");
+    let folderRenameIcon = folder.querySelector(".folder-rename-icon");
 
-  threeDots.addEventListener("click", (event) => {
+  folderRenameIcon.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation(); //event delegation
 
-    if (dialog.style.visibility === "visible") {
-      dialog.style.visibility = "hidden";
-    } else {
-      document
-        .querySelectorAll(".folder-options-dialog")
-        .forEach((dialog) => (dialog.style.visibility = "hidden"));
-      dialog.style.visibility = "visible";
-    }
+    folderRenameDialog.showModal();
   });
 });
 
 
+cancelFolderRenameButton.addEventListener("click",()=>{
+  let folderRenameDialog = document.querySelector(".folder-rename-dialog");
+  
+  folderRenameDialog.close();
+})
 
-fileDivs.forEach((folder) => {
-  const threeDots = folder.querySelector(".three-dots-icon");
-  const dialog = folder.querySelector(".file-options-dialog");
 
-  threeDots.addEventListener("click", (event) => {
+
+
+fileDivs.forEach((file) => {
+    let fileRenameDialog = document.querySelector(".file-rename-dialog");
+    let fileRenameIcon = file.querySelector(".file-rename-icon");
+    let fileInfoIcon = file.querySelector(".file-info-icon");
+
+  fileRenameIcon.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation(); //event delegation
 
-    if (dialog.style.visibility === "visible") {
-      dialog.style.visibility = "hidden";
-    } else {
-      document
-        .querySelectorAll(".file-options-dialog")
-        .forEach((dialog) => (dialog.style.visibility = "hidden"));
-      dialog.style.visibility = "visible";
-    }
+    fileRenameDialog.showModal();
   });
+
+  fileInfoIcon.addEventListener("click",(event)=>{
+    event.preventDefault();
+    event.stopPropagation();
+
+    let fileId = fileInfoIcon.dataset.fileId;
+
+    window.location.href = `/drive/file/details/${fileId}`
+  })
 });
+
+
+cancelFileRenameButton.addEventListener("click",()=>{
+  let fileRenameDialog = document.querySelector(".file-rename-dialog");
+  
+  fileRenameDialog.close();
+})
+
+

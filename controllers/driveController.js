@@ -10,21 +10,21 @@ async function showdrivePage(req, res) {
 
   const folders = await prisma.folder.findMany({
     where: { userId: Number(req.user.id), parentId: null },
-     orderBy: {
+    orderBy: {
       createdAt: "desc",
     },
   });
 
-   const files = await prisma.file.findMany({
+  const files = await prisma.file.findMany({
     where: {
       folderId: null,
-      userId : Number(req.user.id),
+      userId: Number(req.user.id),
     },
     orderBy: {
       createdAt: "desc",
     },
   });
-  res.render("drive", { folders: folders,files:files, });
+  res.render("drive", { folders: folders, files: files });
 }
 
 async function showFolderPage(req, res) {
@@ -107,7 +107,9 @@ async function deleteFolderFromDb(req, res) {
     },
   });
 
-  res.redirect(`/drive/${folder.parentId}`);
+  folder.parentId === null
+    ? res.redirect(`/drive`)
+    : res.redirect(`/drive/${folder.parentId}`);
 }
 
 async function renameFolderInDb(req, res) {
@@ -118,6 +120,10 @@ async function renameFolderInDb(req, res) {
   const userId = Number(req.user.id); // get the current user and folder id
   const folderId = Number(req.body["folder-id"]);
   const newFolderName = req.body["folder-rename"];
+
+  console.log(
+    `this is the folder id ${folderId} & userId ${userId} before updating in prisma`,
+  );
 
   const folder = await prisma.folder.findUnique({
     //doing this to get the folder and then get the parent id to use in the redirect url
@@ -140,7 +146,10 @@ async function renameFolderInDb(req, res) {
     },
   });
 
-  res.redirect(`/drive/${folder.parentId}`);
+  // res.redirect(`/drive/${folder.parentId}`);
+  folder.parentId === null
+    ? res.redirect(`/drive`)
+    : res.redirect(`/drive/${folder.parentId}`);
 }
 
 // deleteFileFromDb
@@ -164,8 +173,10 @@ async function deleteFileFromDb(req, res) {
       id: fileId,
     },
   });
+  
 
-  res.redirect(`/drive/${file.folderId}`);
+  //redirecting based on root or nested folder file structure
+  file.folderId === null ? res.redirect("/drive") : res.redirect(`/drive/${file.folderId}`);
 }
 
 async function showFileDetails(req, res) {
@@ -197,6 +208,10 @@ async function renameFileInDb(req, res) {
   const fileId = Number(req.body["file-id"]);
   const newFileName = req.body["file-rename"];
   const userId = req.user.id;
+
+  console.log(
+    `file id - ${fileId}  , newfilename is ${newFileName} and userid is ${userId}`,
+  );
 
   //getting file details
   const file = await prisma.file.findUnique({
@@ -232,8 +247,10 @@ async function renameFileInDb(req, res) {
       `file/${userId}/${folderId}/${newFileName}`,
     );
 
-  //redirecting to the current folder
-  res.redirect(`/drive/${file.folderId}`);
+  //redirecting to the current folder if its root directory and redirecting to parent folder if its not root directory
+
+    file.folderId === null ? res.redirect("/drive") : res.redirect(`/drive/${file.folderId}`);
+
 }
 
 async function downloadFile(req, res) {
@@ -244,6 +261,10 @@ async function downloadFile(req, res) {
   const userId = req.user.id;
   const fileId = Number(req.params.fileId);
   const file = await prisma.file.findUnique({
+
+
+
+
     where: {
       id: fileId,
     },
@@ -254,10 +275,14 @@ async function downloadFile(req, res) {
     },
   });
 
+  let path;
+  
+  file.folderId === null ?  path = `file/${userId}/${file.name}` : path = `file/${userId}/${file.folderId}/${file.name}`;
+
   const { data, error } = await supabase.storage
     .from("mini-drive")
-    .download(`file/${userId}/${file.folderId}/${file.name}`);
-  console.log(data);
+    .download(path);
+
 
   const arrayBuffer = await data.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);

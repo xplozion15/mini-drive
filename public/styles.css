@@ -1,15 +1,14 @@
-* {
 
+
+
+* {
   box-sizing: border-box;
-  font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: white;
-  
-  
 }
 
 body {
   background-color: #19191b;
-  
 }
 
 dialog {
@@ -17,14 +16,14 @@ dialog {
 }
 
 .logo {
- color: #f56565;
- font-weight: 800;
- font-size: calc(0.6rem + 1.6vw);
+  color: #f56565;
+  font-weight: 800;
+  font-size: calc(0.6rem + 1.6vw);
 }
 
 nav {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   width: 100%;
   margin: auto;
   color: white;
@@ -35,8 +34,6 @@ nav {
 
 .username {
   font-weight: 600;
-  
- 
 }
 
 .username-and-logout-div {
@@ -45,7 +42,7 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-   font-size: calc(0.5rem + 1vw);
+  font-size: calc(0.5rem + 1vw);
 }
 
 a {
@@ -60,8 +57,6 @@ a {
   font-weight: 600;
 }
 
-
-
 .login-button-hero {
   display: flex;
   flex-direction: row;
@@ -74,9 +69,8 @@ a {
 
 .google-icon {
   width: 3rem;
-  height:auto;
+  height: auto;
 }
-
 
 .welcome-heading {
   font-size: calc(1rem + 2vw);
@@ -85,22 +79,20 @@ a {
 }
 
 .welcome-paragraph {
-    font-size: calc(0.5rem + 1vw);
+  font-size: calc(0.5rem + 1vw);
   font-weight: 200;
   margin: 0;
 }
 
 .folder-and-files-div {
-  
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    width: 70vw;
-    margin: auto;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 70vw;
+  margin: auto;
 }
-
 
 .folder-icon-name-div {
   display: flex;
@@ -117,12 +109,13 @@ a {
 }
 
 .file-options-icons-div {
-  display: flex;
+
+   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.5rem;
 }
-
 
 .folder-div {
   background-color: #f56565;
@@ -134,19 +127,37 @@ a {
   justify-content: space-between;
   align-items: center;
   margin: auto;
-  height:4rem;
+  height: 4rem;
   border-radius: 1rem;
-    border: 2px solid #f56565;
-  
+  border: 2px solid #f56565;
 }
+
+
 
 .folder-div:hover {
   background-color: #dc4343;
   border: 2px solid #dc4343;
-  transition: background-color 500ms, border 500ms;
-  
+  transition:
+    background-color 500ms,
+    border 500ms;
 }
 
+
+.delete-folder-button {
+  background-color: inherit;
+  border: none;
+} 
+
+
+.delete-file-button {
+  background-color: inherit;
+  border: none;
+}
+
+.download-file-button {
+  background-color: inherit;
+  border: none;
+}
 
 .hero-section {
   display: flex;
@@ -187,7 +198,6 @@ a {
   height: 3rem;
 }
 
-
 .file-div {
   background-color: cornflowerblue;
   font-size: 0.7rem;
@@ -200,18 +210,17 @@ a {
   justify-content: space-between;
   align-items: center;
   margin: auto;
-  height:4rem;
+  height: 4rem;
   border-radius: 1rem;
   border: 2px solid cornflowerblue;
 }
 
-
-
 .file-div:hover {
   background-color: rgb(16, 69, 168);
   border: 2px solid rgb(16, 69, 168);
-  transition: background-color 500ms, border 500ms;
-  
+  transition:
+    background-color 500ms,
+    border 500ms;
 }
 .folder-title-div {
   display: flex;
@@ -239,7 +248,6 @@ a {
   z-index: 999;
 }
 
-
 .button-container {
   width: 70vw;
   display: flex;
@@ -251,8 +259,8 @@ a {
   margin-bottom: 2rem;
 }
 
-
-.new-folder-button,.upload-file-button {
+.new-folder-button,
+.upload-file-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -266,22 +274,13 @@ a {
   cursor: pointer;
 }
 
-
-
-
-
-
 .folder-div-options-icons-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.8rem;
   margin: 0.5rem;
-  
 }
-
-
-
 
 footer {
   background-color: #141416;
