@@ -231,6 +231,11 @@ app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
   // req.body will contain the text fields, if there were any
 });
 
+// 404 error route
+app.use((req, res, next) => {
+  res.status(404).send("error 404 this url doesnt exist in mini drive app");
+});
+
 app.listen(port, () => {
   console.log(`Welcome to mini drive express app ${port}`);
 });

@@ -1,16 +1,28 @@
+:root {
+  /* Colors */
+  --color-white: white;
+  --color-black: black;
+  --color-bg: #19191b;
+  --color-footer-bg: #141416;
+  --color-primary: #f56565;
+  --color-primary-hover: #dc4343;
+  --color-file: cornflowerblue;
+  --color-file-hover: rgb(16, 69, 168);
+  --color-dialog-bg: #e5e5e5;
 
-
+  /* Fonts */
+  --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
 * {
   box-sizing: border-box;
-  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
+  font-family: var(--font-family);
+  color: var(--color-white);
 }
 
 body {
-  background-color: #19191b;
+  background-color: var(--color-bg);
 }
-
 
 .such-empty-text {
   display: flex;
@@ -26,21 +38,25 @@ body {
 }
 
 main {
-  
   min-height: 80vh;
-
 }
 
 footer {
   height: 20vh;
+  background-color: var(--color-footer-bg);
 }
 
-dialog {
-  box-shadow: 0 0 10px 500vw rgba(0, 0, 0, 0.6);
+.dialog {
+
+  min-height: 8rem;
+}
+
+dialog input {
+  background-color: var(--color-primary);
 }
 
 .logo {
-  color: #f56565;
+  color: var(--color-primary);
   font-weight: 800;
   font-size: calc(0.6rem + 1.6vw);
 }
@@ -50,7 +66,7 @@ nav {
   justify-content: space-between;
   width: 100%;
   margin: auto;
-  color: white;
+  color: var(--color-white);
   height: 4.5rem;
   padding: 1rem;
   align-items: center;
@@ -73,8 +89,8 @@ a {
   display: inline-block;
   width: 14rem;
   flex-direction: row;
-  color: black;
-  background-color: white;
+  color: var(--color-black);
+  background-color: var(--color-white);
   /* border: 2px solid lightskyblue; */
   border-radius: 1rem;
   text-decoration: none;
@@ -125,6 +141,12 @@ a {
   gap: 0.5rem;
 }
 
+.folder-name,.file-name {
+  font-size: calc(0.5rem + 0.5vw);;
+}
+
+
+
 .file-name-icon-div {
   display: flex;
   justify-content: space-between;
@@ -133,8 +155,7 @@ a {
 }
 
 .file-options-icons-div {
-
-   display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.8rem;
@@ -142,7 +163,7 @@ a {
 }
 
 .folder-div {
-  background-color: #f56565;
+  background-color: var(--color-primary);
   padding: 0.2rem;
   width: 70vw;
   display: flex;
@@ -153,31 +174,19 @@ a {
   margin: auto;
   height: 4rem;
   border-radius: 1rem;
-  border: 2px solid #f56565;
+  border: 2px solid var(--color-primary);
 }
 
-
-
 .folder-div:hover {
-  background-color: #dc4343;
-  border: 2px solid #dc4343;
+  background-color: var(--color-primary-hover);
+  border: 2px solid var(--color-primary-hover);
   transition:
     background-color 500ms,
     border 500ms;
 }
 
-
-.delete-folder-button {
-  background-color: inherit;
-  border: none;
-} 
-
-
-.delete-file-button {
-  background-color: inherit;
-  border: none;
-}
-
+.delete-folder-button,
+.delete-file-button,
 .download-file-button {
   background-color: inherit;
   border: none;
@@ -203,6 +212,7 @@ a {
   flex-direction: column;
   justify-content: center;
 }
+
 .hero-section-right-side {
   /* border: 2px solid yellow; */
   width: 40%;
@@ -223,48 +233,39 @@ a {
 }
 
 .file-div {
-  background-color: cornflowerblue;
+  background-color: var(--color-file);
   font-size: 0.7rem;
   position: relative;
   padding: 0.2rem;
   width: 70vw;
   display: flex;
-  position: relative;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin: auto;
   height: 4rem;
   border-radius: 1rem;
-  border: 2px solid cornflowerblue;
+  border: 2px solid var(--color-file);
 }
 
 .file-div:hover {
-  background-color: rgb(16, 69, 168);
-  border: 2px solid rgb(16, 69, 168);
+  background-color: var(--color-file-hover);
+  border: 2px solid var(--color-file-hover);
   transition:
     background-color 500ms,
     border 500ms;
 }
+
 .folder-title-div {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.folder-options-dialog {
-  background-color: #e5e5e5;
-  color: black;
-  position: absolute;
-  visibility: hidden;
-  top: 90%;
-  left: 67%;
-  z-index: 999;
-}
-
+.folder-options-dialog,
 .file-options-dialog {
-  background-color: #e5e5e5;
-  color: black;
+  background-color: var(--color-dialog-bg);
+  color: var(--color-black);
   position: absolute;
   visibility: hidden;
   top: 90%;
@@ -278,9 +279,9 @@ a {
   justify-content: flex-start;
   gap: 1.5rem;
   margin: auto;
-  /* border: 2px solid white; */
   margin-top: 2rem;
   margin-bottom: 2rem;
+  /* border: 2px solid white; */
 }
 
 .new-folder-button,
@@ -289,10 +290,10 @@ a {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 0.5rem;
-  border: 2px solid white;
-  color: black;
+  border: 2px solid var(--color-white);
+  color: var(--color-black);
   width: 10rem;
   height: 2.5rem;
   cursor: pointer;
@@ -306,7 +307,45 @@ a {
   margin: 0.5rem;
 }
 
-footer {
-  background-color: #141416;
-  height: 10rem;
+
+.file-details-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30rem;
+  background-color: #353539;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
+  font-size: calc(0.5rem + 0.5vw);
+}
+
+.back-button-file-details {
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  min-height: 3rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.back-button-file-details:hover {
+  background-color: var(--color-primary-hover);
+  border: 2px solid var(--color-primary-hover);
+  transition: background-color 500ms,border 500ms;
+}
+
+.back-button-file-details-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

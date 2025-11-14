@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { supabase } = require("../utils/supabaseUpload");
-const {formatFileSize} = require("../utils/formatFileSize");
+const { formatFileSize } = require("../utils/formatFileSize");
 
 async function showdrivePage(req, res) {
   if (!req.user) {
@@ -174,10 +174,11 @@ async function deleteFileFromDb(req, res) {
       id: fileId,
     },
   });
-  
 
   //redirecting based on root or nested folder file structure
-  file.folderId === null ? res.redirect("/drive") : res.redirect(`/drive/${file.folderId}`);
+  file.folderId === null
+    ? res.redirect("/drive")
+    : res.redirect(`/drive/${file.folderId}`);
 }
 
 async function showFileDetails(req, res) {
@@ -254,8 +255,9 @@ async function renameFileInDb(req, res) {
 
   //redirecting to the current folder if its root directory and redirecting to parent folder if its not root directory
 
-    file.folderId === null ? res.redirect("/drive") : res.redirect(`/drive/${file.folderId}`);
-
+  file.folderId === null
+    ? res.redirect("/drive")
+    : res.redirect(`/drive/${file.folderId}`);
 }
 
 async function downloadFile(req, res) {
@@ -266,10 +268,6 @@ async function downloadFile(req, res) {
   const userId = req.user.id;
   const fileId = Number(req.params.fileId);
   const file = await prisma.file.findUnique({
-
-
-
-
     where: {
       id: fileId,
     },
@@ -281,13 +279,14 @@ async function downloadFile(req, res) {
   });
 
   let path;
-  
-  file.folderId === null ?  path = `file/${userId}/${file.name}` : path = `file/${userId}/${file.folderId}/${file.name}`;
+
+  file.folderId === null
+    ? (path = `file/${userId}/${file.name}`)
+    : (path = `file/${userId}/${file.folderId}/${file.name}`);
 
   const { data, error } = await supabase.storage
     .from("mini-drive")
     .download(path);
-
 
   const arrayBuffer = await data.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);

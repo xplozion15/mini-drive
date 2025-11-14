@@ -121,7 +121,7 @@
                                         <path d="M14 2v4a2 2 0 0 0 2 2h4" />
                                     </svg>
 
-                                    <p>
+                                    <p class="file-name">
                                         <%= file.name %>
                                     </p>
                                 </div>
@@ -179,24 +179,7 @@
                                 </div>
 
 
-                                <div class="file-options-dialog">
-                                    <form action="/drive/del/file/<%= file.id %>" method="post"
-                                        class="delete-file-form">
-                                        <button type="submit">Delete</button>
-                                    </form>
-
-                                    <form action="/drive/download/file/<%= file.id %>" method="post"
-                                        class="download-file-form">
-                                        <button type="submit">download</button>
-                                    </form>
-
-                                    <p class="menu-rename-file" data-file-id="<%= file.id %>"
-                                        data-file-name="<%= file.name %>">
-                                        Rename</p>
-                                    <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
-                                </div>
-
-
+        
 
                             </div>
                         </a>
@@ -232,13 +215,15 @@
 
         <!--  dialog for file  upload -->
         <dialog class="file-upload-dialog">
-            <form action="/profile" method="post" enctype="multipart/form-data">
+            <div class="dialog">
+                <form action="/profile" method="post" enctype="multipart/form-data">
                 <input type="file" name="avatar" />
                 <div>
                     <button type="button" class="file-upload-cancel-button">CANCEL</button>
                     <button type="submit" class="file-upload-send-button">SEND</button>
                 </div>
             </form>
+            </div>
         </dialog>
         </main>
         <hr class="simple-hr">
