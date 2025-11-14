@@ -10,11 +10,9 @@
 
 <body>
     <%- include('navbar', {}) %>
-        <main>
-
-        </main>
-
-        <div class="button-container">
+        <main>  
+            
+            <div class="button-container">
             <button class="new-folder-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" class="lucide lucide-folder-plus-icon lucide-folder-plus">
@@ -34,8 +32,13 @@
 
         </div>
 
+         <% if(folders.length === 0 && files.length === 0 ) { %>
+                <h2 class="such-empty-text">WOW SUCH EMPTY? :(</h2>
+               
+           <% } %>
 
         <div class="folder-and-files-div">
+            
             <% folders.forEach((folder)=> { %>
                 <a href="/drive/<%= folder.id %>">
 
@@ -237,6 +240,10 @@
                 </div>
             </form>
         </dialog>
+        </main>
+        <hr class="simple-hr">
+         <%- include('footer', {}) %>
+        
 
         <script src="/script1.js"></script>
 

@@ -5,26 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-    <div class="file-details">
-     
+    <%- include('navbar', {}) %>
+        <main>
+            <div class="file-details">
 
-        <p class="file-name">
-            name - <%= file.name %>
-        </p>
-        
-        <p class="file-size">
-            size - <%= file.size %>
-        </p>
-        <p class="created-at">
-            created at  - <%= file.createdAt %>
-        </p>
-        <p class="file-type">
-            file type - <%= file.fileType %>
-        </p>
-    </div>
+
+                <p class="file-name">
+                    name - <%= file.name %>
+                </p>
+
+                <p class="file-size">
+                    size - <%= file.size %>
+                </p>
+                <p class="created-at">
+                    created at - <%= file.createdAt %>
+                </p>
+                <p class="file-type">
+                    file type - <%= file.fileType %>
+                </p>
+            </div>
+        </main>
+        <hr class="simple-hr">
+        <%- include('footer', {}) %>
 </body>
 
 </html>

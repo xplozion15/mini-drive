@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { supabase } = require("../utils/supabaseUpload");
+const {formatFileSize} = require("../utils/formatFileSize");
 
 async function showdrivePage(req, res) {
   if (!req.user) {
@@ -194,6 +195,10 @@ async function showFileDetails(req, res) {
       fileType: true,
     },
   });
+
+  const convertedSize = formatFileSize(file.size);
+
+  file.size = convertedSize;
 
   res.render("fileDetails", { file: file });
 }
