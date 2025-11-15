@@ -108,6 +108,9 @@ async function deleteFolderFromDb(req, res) {
     },
   });
 
+  
+
+
   folder.parentId === null
     ? res.redirect(`/drive`)
     : res.redirect(`/drive/${folder.parentId}`);

@@ -42,6 +42,7 @@ fileUploadCancelButton.addEventListener("click", () => {
   fileUploadDialog.close();
 });
 
+
 folderDivs.forEach((folder) => {
     let folderRenameDialog = document.querySelector(".folder-rename-dialog");
     let folderRenameIcon = folder.querySelector(".folder-rename-icon");

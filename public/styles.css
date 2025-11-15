@@ -20,6 +20,7 @@
   color: var(--color-white);
 }
 
+
 body {
   background-color: var(--color-bg);
 }
@@ -349,3 +350,5 @@ a {
   flex-direction: row;
   justify-content: center;
 }
+
+
