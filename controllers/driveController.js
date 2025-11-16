@@ -122,7 +122,7 @@ async function renameFolderInDb(req, res) {
   }
 
   const userId = Number(req.user.id); // get the current user and folder id
-  const folderId = Number(req.body["folder-id"]);
+  const folderId = Number(req.params.folderId);
   const newFolderName = req.body["folder-rename"];
 
   console.log(
@@ -214,7 +214,8 @@ async function renameFileInDb(req, res) {
   }
 
   // fileid,new file name and user id
-  const fileId = Number(req.body["file-id"]);
+  // const fileId = Number(req.body["file-id"]);
+  const fileId = Number(req.params.fileId);
   const newFileName = req.body["file-rename"];
   const userId = req.user.id;
 

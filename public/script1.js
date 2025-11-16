@@ -9,16 +9,15 @@ let fileUploadCancelButton = document.querySelector(
   ".file-upload-cancel-button",
 );
 
-let cancelFolderRenameButton  = document.querySelector(".cancel-folder-rename-button");
-let cancelFileRenameButton  = document.querySelector(".cancel-file-rename-button");
-
+let cancelFolderRenameButton = document.querySelector(
+  ".cancel-folder-rename-button",
+);
+let cancelFileRenameButton = document.querySelector(
+  ".cancel-file-rename-button",
+);
 
 let folderDivs = document.querySelectorAll(".folder-div");
 let fileDivs = document.querySelectorAll(".file-div");
-
-
-
-
 
 newFolderButton.addEventListener("click", () => {
   // window.location.href = "/drive/newfolder";
@@ -42,56 +41,63 @@ fileUploadCancelButton.addEventListener("click", () => {
   fileUploadDialog.close();
 });
 
-
 folderDivs.forEach((folder) => {
-    let folderRenameDialog = document.querySelector(".folder-rename-dialog");
-    let folderRenameIcon = folder.querySelector(".folder-rename-icon");
+  let folderRenameDialog = document.querySelector(".folder-rename-dialog");
+  let folderRenameIcon = folder.querySelector(".folder-rename-icon");
+  let folderRenameForm = document.querySelector(".folder-rename-form");
+  let folderId = folder.dataset.folderId;
 
   folderRenameIcon.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation(); //event delegation
 
+    folderRenameForm.action = `/drive/rename/${folderId}`;
+    document.getElementById("folder-id-hidden").value = folderId;
+
     folderRenameDialog.showModal();
   });
 });
 
-
-cancelFolderRenameButton.addEventListener("click",()=>{
+cancelFolderRenameButton.addEventListener("click", () => {
   let folderRenameDialog = document.querySelector(".folder-rename-dialog");
-  
-  folderRenameDialog.close();
-})
 
+  folderRenameDialog.close();
+});
 
 
 
 fileDivs.forEach((file) => {
-    let fileRenameDialog = document.querySelector(".file-rename-dialog");
-    let fileRenameIcon = file.querySelector(".file-rename-icon");
-    let fileInfoIcon = file.querySelector(".file-info-icon");
+  let fileRenameDialog = document.querySelector(".file-rename-dialog");
+  let fileRenameIcon = file.querySelector(".file-rename-icon");
+  let fileInfoIcon = file.querySelector(".file-info-icon");
+  let fileRenameForm = document.querySelector(".file-rename-form")
+  let fileId = file.dataset.fileId;
 
+  
   fileRenameIcon.addEventListener("click", (event) => {
     event.preventDefault();
-    event.stopPropagation(); //event delegation
+    event.stopPropagation(); //event delegation 
+
+    fileRenameForm.action = `/drive/rename/file/${fileId}`;
+    document.getElementById("file-id-hidden").value = fileId;
+
 
     fileRenameDialog.showModal();
   });
 
-  fileInfoIcon.addEventListener("click",(event)=>{
+  fileInfoIcon.addEventListener("click", (event) => {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
+    console.log("iwasclicked!!!!!!!");
 
-    let fileId = fileInfoIcon.dataset.fileId;
+    let fileId = file.dataset.fileId;
 
-    window.location.href = `/drive/file/details/${fileId}`
-  })
+    window.location.href = `/drive/file/details/${fileId}`;
+  });
 });
 
-
-cancelFileRenameButton.addEventListener("click",()=>{
+cancelFileRenameButton.addEventListener("click", () => {
   let fileRenameDialog = document.querySelector(".file-rename-dialog");
-  
+
   fileRenameDialog.close();
-})
-
-
+});

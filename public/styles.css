@@ -25,6 +25,8 @@ body {
   background-color: var(--color-bg);
 }
 
+
+
 .such-empty-text {
   display: flex;
   flex-direction: row;
@@ -40,6 +42,7 @@ body {
 
 main {
   min-height: 80vh;
+  /* margin-bottom: 2rem; */
 }
 
 footer {
@@ -86,17 +89,6 @@ nav {
   font-size: calc(0.5rem + 1vw);
 }
 
-a {
-  display: inline-block;
-  width: 14rem;
-  flex-direction: row;
-  color: var(--color-black);
-  background-color: var(--color-white);
-  /* border: 2px solid lightskyblue; */
-  border-radius: 1rem;
-  text-decoration: none;
-  font-weight: 600;
-}
 
 .login-button-hero {
   display: flex;
@@ -157,7 +149,7 @@ a {
 
 .file-options-icons-div {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 0.8rem;
   margin: 0.5rem;
@@ -352,3 +344,39 @@ a {
 }
 
 
+
+
+.file-info-button {
+  background-color: inherit;
+  border: none;
+}
+
+
+
+
+footer {
+  width: 80vw;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: var(--color-bg);
+  align-items: flex-start;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-links p {
+  margin: 0;
+}
+
+.footer-links a {
+  color: var(--color-primary);
+}

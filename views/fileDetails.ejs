@@ -21,29 +21,23 @@
                     Size - <%= file.size %>
                 </p>
                 <p class="created-at">
-                    Created at - <%= file.createdAt %>
+                    Created at - <%= file.createdAt.toLocaleString('en-US', { hour12: false }) %>
                 </p>
-     3           <p class="file-type">
+                 <p class="file-type">
                     File type - <%= file.fileType %>
                 </p>
 
 
-                <% if (file.parentId === null) { %>
-                    <form action="/drive" method="get" class="back-button-file-details-form"></form>
-                    <% } else { %>
-                        <form action="/drive/<%= file.parentId %>" method="get" class="back-button-file-details-form">
-                        </form>
-                        <% } %>
-                            <form action="/drive/<%= file.parentId %>" method="get"
-                                class="back-button-file-details-form">
-                                <button type="submit" class="back-button-file-details">BACK <svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left">
-                                        <path d="m12 19-7-7 7-7" />
-                                        <path d="M19 12H5" />
-                                    </svg></button>
-                            </form>
+
+                <form class="back-button-file-details-form">
+                    <button type="button" class="back-button-file-details" onclick="window.history.back()">BACK <svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-arrow-left-icon lucide-arrow-left">
+                            <path d="m12 19-7-7 7-7" />
+                            <path d="M19 12H5" />
+                        </svg></button>
+                </form>
             </div>
         </main>
         <hr class="simple-hr">

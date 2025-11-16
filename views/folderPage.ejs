@@ -65,32 +65,34 @@
                                         </p>
                                     </div>
 
-                                  <div class="folder-div-options-icons-div">
+                                    <div class="folder-div-options-icons-div">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="folder-div-options-icons folder-rename-icon"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-folder-pen-icon lucide-folder-pen">
-                                <path
-                                    d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
-                                <path
-                                    d="M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-                            </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-folder-pen-icon lucide-folder-pen folder-div-options-icons folder-rename-icon">
+                                            <path
+                                                d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
+                                            <path
+                                                d="M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+                                        </svg>
 
-                            <form action="/drive/del/<%= folder.id %>" method="post" class="delete-folder-form">
-                                <button type="submit" class="menu-delete delete-folder-button" data-folder-id="<%= folder.id %>"><svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="folder-div-options-icons folder-delete-icon" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="lucide lucide-trash-icon lucide-trash">
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                        <path d="M3 6h18" />
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                    </svg></button>
-                            </form>
+                                        <form action="/drive/del/<%= folder.id %>" method="post"
+                                            class="delete-folder-form">
+                                            <button type="submit" class="menu-delete delete-folder-button"
+                                                data-folder-id="<%= folder.id %>"><svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="folder-div-options-icons folder-delete-icon" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-trash-icon lucide-trash">
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                    <path d="M3 6h18" />
+                                                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                </svg></button>
+                                        </form>
 
-                        </div>
+                                    </div>
 
                                     <div class="folder-options-dialog">
                                         <form action="/drive/del/<%= folder.id %>" method="post"
@@ -107,26 +109,15 @@
 
                                 </div>
                             </a>
-                            <dialog class="folder-rename-dialog">
-                                <form action="/drive/rename/<%= folder.id %>" method="post">
-                                    <input type="text" name="folder-id" id="folder-id" value="<%= folder.id %>" hidden>
-                                    <div>
-                                        <input type="text" name="folder-rename" id="folder-rename">
-                                    </div>
-                                    <button type="reset" class="cancel-folder-rename-button"
-                                        id="cancel-folder-rename-button">CANCEL</button>
-                                    <button type="submit" class="submit-rename-folder-button"
-                                        id="submit-rename-folder-button">RENAME</button>
-                                </form>
-                            </dialog>
+                            
                             <% }) %>
 
 
                                 <% files.forEach((file)=>{ %>
                                     <a href="">
-                                        <div class="file-div" data-file-id="<%= file.id %>">
-                                            <div class="file-name-icon-div">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    <div class="file-div" data-file-id="<%= file.id %>">
+                                        <div class="file-name-icon-div">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
                                                 class="lucide lucide-file-icon lucide-file">
@@ -137,52 +128,75 @@
                                             <p>
                                                 <%= file.name %>
                                             </p>
-                                            </div>
-                                            
+                                        </div>
+
+                                        <div class="file-options-icons-div">
+
+                                            <form action="/drive/download/file/<%= file.id %>" method="post"
+                                                class="download-file-form">
+                                                <button type="submit" class="download-file-button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        class="file-options-icons" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="lucide lucide-download-icon lucide-download">
+                                                        <path d="M12 15V3" />
+                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                                        <path d="m7 10 5 5 5-5" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+
+                                            <form action="/drive/file/details/<%= file.id %>" method="get">
+                                                <button type="submit" class="file-info-button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-info-icon lucide-info file-options-icons file-info-icon">
+                                                        <circle cx="12" cy="12" r="10" />
+                                                        <path d="M12 16v-4" />
+                                                        <path d="M12 8h.01" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical three-dots-icon">
-                                                <circle cx="12" cy="12" r="1" />
-                                                <circle cx="12" cy="5" r="1" />
-                                                <circle cx="12" cy="19" r="1" />
+                                                class="lucide lucide-folder-pen-icon lucide-folder-pen file-options-icons file-rename-icon">
+                                                <path
+                                                    d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
+                                                <path
+                                                    d="M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
                                             </svg>
 
-                                            <div class="file-options-dialog">
-                                                <form action="/drive/del/file/<%= file.id %>" method="post"
-                                                    class="delete-file-form">
-                                                    <button type="submit">Delete</button>
-                                                </form>
-
-                                                <form action="/drive/download/file/<%= file.id %>" method="post"
-                                                    class="download-file-form">
-                                                    <button type="submit">download</button>
-                                                </form>
-
-                                                <p class="menu-rename-file" data-file-id="<%= file.id %>"
-                                                    data-file-name="<%= file.name %>">Rename</p>
-                                                <p class="details-file-button" data-file-id="<%= file.id %>">Details</p>
-                                            </div>
-
-
-
+                                            <form action="/drive/del/file/<%= file.id %>" method="post"
+                                                class="delete-file-form">
+                                                <button type="submit" class="menu-delete delete-file-button"
+                                                    data-folder-id="<%= file.id %>">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="file-div-options-icons file-delete-icon" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="lucide lucide-trash-icon lucide-trash">
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                        <path d="M3 6h18" />
+                                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                    </svg>
+                                                </button>
+                                            </form>
                                         </div>
+
+
+
+
+
+                                    </div>
                                     </a>
 
 
-                                    <dialog class="file-rename-dialog">
-                                        <form action="/drive/rename/file/<%= file.id %>" method="post">
-                                            <input type="text" name="file-id" id="file-id" hidden>
-                                            <div>
-                                                <input type="text" name="file-rename" id="file-rename">
-                                            </div>
-
-                                            <button type="reset" class="cancel-file-rename-button"
-                                                id="cancel-file-rename-button">CANCEL</button>
-                                            <button type="submit" class="submit-rename-file-button"
-                                                id="submit-rename-file-button">RENAME</button>
-                                        </form>
-                                    </dialog>
+                                    
                                     <% }) %>
 
 
@@ -205,6 +219,34 @@
         </main>
         <hr>
         <%- include('footer', {}) %>
+
+        <dialog class="folder-rename-dialog">
+                                <form  method="post" class="folder-rename-form">
+                                    <input type="text" name="folder-id-hidden" id="folder-id-hidden" hidden>
+                                    <div>
+                                        <input type="text" name="folder-rename" id="folder-rename">
+                                    </div>
+                                    <button type="reset" class="cancel-folder-rename-button"
+                                        id="cancel-folder-rename-button">CANCEL</button>
+                                    <button type="submit" class="submit-rename-folder-button"
+                                        id="submit-rename-folder-button">RENAME</button>
+                                </form>
+                            </dialog>
+
+                            <dialog class="file-rename-dialog">
+                                        <form method="post" class="file-rename-form">
+                                            <input type="text" name="file-id-hidden" id="file-id-hidden" hidden>
+                                            <div>
+                                                <input type="text" name="file-rename" id="file-rename">
+                                            </div>
+
+                                            <button type="reset" class="cancel-file-rename-button"
+                                                id="cancel-file-rename-button">CANCEL</button>
+                                            <button type="submit" class="submit-rename-file-button"
+                                                id="submit-rename-file-button">RENAME</button>
+                                        </form>
+                                    </dialog>
+
             <script src="/script1.js"></script>
 </body>
 
