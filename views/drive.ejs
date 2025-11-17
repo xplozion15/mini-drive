@@ -13,22 +13,24 @@
         <main>
 
             <div class="button-container">
-                <button class="new-folder-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-folder-plus-icon lucide-folder-plus">
-                        <path d="M12 10v6" />
-                        <path d="M9 13h6" />
-                        <path
-                            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
-                    </svg> NEW FOLDER</button>
+                <div class="button-sub-container">
+                    <button class="new-folder-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-folder-plus-icon lucide-folder-plus">
+                            <path d="M12 10v6" />
+                            <path d="M9 13h6" />
+                            <path
+                                d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+                        </svg> NEW FOLDER</button>
 
-                <button class="upload-file-button"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload">
-                        <path d="M12 3v12" />
-                        <path d="m17 8-5-5-5 5" />
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    </svg>UPLOAD FILE</button>
+                    <button class="upload-file-button"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload">
+                            <path d="M12 3v12" />
+                            <path d="m17 8-5-5-5 5" />
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        </svg>UPLOAD FILE</button>
+                </div>
 
             </div>
 
@@ -90,7 +92,7 @@
 
                                 </div>
                             </a>
-                            
+
                             <% }) %>
 
                                 <% files.forEach((file)=>{ %>
@@ -177,29 +179,37 @@
 
                                         </div>
                                     </a>
-                                   
+
                                     <% }) %>
                     </div>
 
 
                     <dialog class="create-folder-dialog">
-                        <form action="/drive/newfolder" method="post">
+
+                    
+                            <form action="/drive/newfolder" method="post" class="dialog-wrapper">
                             <div>
-                                <label for="folder-name">Name?</label>
+                                <div>
+                                    <label for="folder-name">Folder name?</label>
+                                </div>
                                 <input type="text" name="folder-name" id="folder-name">
                             </div>
-                            <button type="reset" class="cancel-new-folder-button">CANCEL</button>
+                           <div class="create-folder-button-container">
+                             <button type="reset" class="cancel-new-folder-button">CANCEL</button>
                             <button type="submit" class="create-new-folder-button">CREATE</button>
+                           </div>
                         </form>
+
+                        
                     </dialog>
 
 
                     <!--  dialog for file  upload -->
                     <dialog class="file-upload-dialog">
-                        <div class="dialog">
+                        <div class="dialog-wrapper">
                             <form action="/profile" method="post" enctype="multipart/form-data">
                                 <input type="file" name="avatar" />
-                                <div>
+                                <div class="upload-file-button-container">
                                     <button type="button" class="file-upload-cancel-button">CANCEL</button>
                                     <button type="submit" class="file-upload-send-button">SEND</button>
                                 </div>
@@ -208,37 +218,46 @@
                     </dialog>
         </main>
         <hr class="simple-hr">
-                <dialog class="folder-rename-dialog">
-                                <form  method="post" class="folder-rename-form">
-                                    <input type="text" name="folder-id-hidden" id="folder-id-hidden" hidden>
-                                    <div>
-                                        <input type="text" name="folder-rename" id="folder-rename">
-                                    </div>
-                                    <button type="reset" class="cancel-folder-rename-button"
-                                        id="cancel-folder-rename-button">CANCEL</button>
-                                    <button type="submit" class="submit-rename-folder-button"
-                                        id="submit-rename-folder-button">RENAME</button>
-                                </form>
-                            </dialog>
+        <dialog class="folder-rename-dialog">
+            <div class="dialog-wrapper">
 
-                            <dialog class="file-rename-dialog">
-                                        <form method="post" class="file-rename-form">
-                                            <input type="text" name="file-id-hidden" id="file-id-hidden" hidden>
-                                            <div>
-                                                <input type="text" name="file-rename" id="file-rename">
-                                            </div>
+            <form method="post" class="folder-rename-form">
+                <input type="text" name="folder-id-hidden" id="folder-id-hidden" hidden>
+                <div>
+                    <label for="folder-rename">New Folder Name?</label>
+                    <input type="text" name="folder-rename" id="folder-rename">
+                </div>
+               <div class="folder-rename-button-container">
+                 <button type="reset" class="cancel-folder-rename-button"
+                    id="cancel-folder-rename-button">CANCEL</button>
+                <button type="submit" class="submit-rename-folder-button"
+                    id="submit-rename-folder-button">RENAME</button>
+               </div>
+            </form>
+            </div>
+        </dialog>
 
-                                            <button type="reset" class="cancel-file-rename-button"
-                                                id="cancel-file-rename-button">CANCEL</button>
-                                            <button type="submit" class="submit-rename-file-button"
-                                                id="submit-rename-file-button">RENAME</button>
-                                        </form>
-                                    </dialog>
+        <dialog class="file-rename-dialog">
+           <div class="dialog-wrapper">
+             <form method="post" class="file-rename-form">
+                <input type="text" name="file-id-hidden" id="file-id-hidden" hidden>
+                <div>
+                    <label for="file-rename">New File Name?</label>
+                    <input type="text" name="file-rename" id="file-rename">
+                </div>
+
+                <div class="file-rename-button-container">
+                    <button type="reset" class="cancel-file-rename-button" id="cancel-file-rename-button">CANCEL</button>
+                <button type="submit" class="submit-rename-file-button" id="submit-rename-file-button">RENAME</button>
+                </div>
+            </form>
+           </div>
+        </dialog>
 
         <%- include('footer', {}) %>
 
 
-         <script src="/script.js"></script>
+            <script src="/script.js"></script>
 
 
 </body>
