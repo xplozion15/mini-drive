@@ -250,12 +250,24 @@ async function renameFileInDb(req, res) {
 
   // update file name in supabase storage
   // Move and rename files
-  const { data, error } = await supabase.storage
+  //also check if the file is in root or nested inside root folder.
+  if (folderId === null ) {
+      const { data, error } = await supabase.storage
+    .from("mini-drive")
+    .move(
+      `file/${userId}/${oldFileName}`,
+      `file/${userId}/${newFileName}`,
+    )
+  }
+  else {
+     const { data, error } = await supabase.storage
     .from("mini-drive")
     .move(
       `file/${userId}/${folderId}/${oldFileName}`,
       `file/${userId}/${folderId}/${newFileName}`,
     );
+  }
+ 
 
   //redirecting to the current folder if its root directory and redirecting to parent folder if its not root directory
 
