@@ -85,10 +85,9 @@ dialog {
 
 .folder-div-options-icons-div form,
 .file-options-icons-div form {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
 
 dialog input {
   margin-top: 0.3rem;
@@ -243,7 +242,9 @@ nav {
   border: 2px solid var(--color-primary);
 }
 
-.file-rename-icon,.folder-rename-icon,.file-info-icon-drive {
+.file-rename-icon,
+.folder-rename-icon,
+.file-info-icon-drive {
   margin-bottom: 5px;
 }
 
@@ -446,13 +447,9 @@ nav {
   justify-content: center;
 }
 
-
-
-
 .file-info-button {
   background-color: inherit;
   border: none;
-  
 }
 
 footer {

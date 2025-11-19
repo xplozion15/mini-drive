@@ -31,16 +31,32 @@ function validateSize() {
     fileUploadError.textContent = "Error: You need to select a file";
     fileUploadSendButton.style.pointerEvents = "none";
     fileUploadSendButton.style.opacity = "0.5";
+    return;
   }
 
-  const limit = 6144; // 6MB in KB
-  const size = Math.round(file.size / 1024); // Convert bytes to KB
+  //limit file name to 15 char
+  let nameWithoutExt = file.name.split(".")[0];
+  if (nameWithoutExt.length > 15) {
+    fileUploadError.textContent = `Error: File name too long (${nameWithoutExt.length} characters). Max allowed is 15`;
+    fileUploadSendButton.style.pointerEvents = "none";
+    fileUploadSendButton.style.opacity = "0.5";
+    return;
+  }
+
+  // size limit (6MB)
+  const limit = 6144; // KB
+  const size = Math.round(file.size / 1024);
 
   if (size > limit) {
     fileUploadError.textContent = `Error: File larger than 6MB (${(size / 1024).toFixed(2)} MB)`;
     fileUploadSendButton.style.pointerEvents = "none";
     fileUploadSendButton.style.opacity = "0.5";
+    return;
   }
+
+  fileUploadError.textContent = "";
+  fileUploadSendButton.style.pointerEvents = "all";
+  fileUploadSendButton.style.opacity = "1";
 }
 
 //timeout for error alert
