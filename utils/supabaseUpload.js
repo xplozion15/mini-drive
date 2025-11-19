@@ -8,7 +8,6 @@ const supabase = createClient(
 
 // Upload file using standard upload
 async function uploadFile(file, userId, parentFolderId) {
-  
   const path =
     parentFolderId === null
       ? `file/${userId}/${file.originalname}`

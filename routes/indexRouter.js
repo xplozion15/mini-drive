@@ -3,10 +3,8 @@ const indexRouter = express.Router();
 const indexControllers = require("../controllers/indexController");
 
 indexRouter.get("/", indexControllers.showIndexPage);
-indexRouter.get("/login", indexControllers.showLoginPage);
-indexRouter.get("/terms",indexControllers.showTermsPage);
-indexRouter.get("/privacy",indexControllers.showPrivacyPage)
-
+indexRouter.get("/terms", indexControllers.showTermsPage);
+indexRouter.get("/privacy", indexControllers.showPrivacyPage);
 
 indexRouter.get("/logout", function (req, res, next) {
   req.logout(function (err) {

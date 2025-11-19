@@ -5,6 +5,7 @@ A personal file management web application inspired by Google Drive, built with 
 - Live preview: _[https://mini-drive-5c3e.onrender.com/]_
 
 ## Features
+
 - **Google OAuth Login:** Secure authentication using Google accounts.
 - **File Management:** Create,read,update,delete files.
 - **Folder Management:** Create, read, update, and delete folders.
@@ -12,6 +13,7 @@ A personal file management web application inspired by Google Drive, built with 
 - **Cloud Storage:** Integrated Supabase standard uploads for storing files.
 
 ## Learnings
+
 - Implementing **Google OAuth 2.0** with Passport.js.
 - Session management with **Prisma session store**.
 - MVC architecture using **controllers, views, and routes**.
@@ -21,13 +23,15 @@ A personal file management web application inspired by Google Drive, built with 
 - Responsive design and user interface practices.
 
 ## Technologies Used
+
 - **Backend:** Node.js, Express
 - **Frontend:** HTML, CSS, EJS, JavaScript
 - **Authentication:** Google OAuth 2.0, Passport.js
-- **Database:** Prisma + PostgreSQL 
-- **File Storage:** Supabase 
+- **Database:** Prisma + PostgreSQL
+- **File Storage:** Supabase
 
 ## Credits
+
 - Icons by [Lucide Icons](https://lucide.dev/)
 - Hero image designed by [Freepik](https://www.freepik.com/)
 - Google icon by [Font Awesome](https://fontawesome.com/icons/google?f=brands&s=solid)

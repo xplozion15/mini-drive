@@ -31,7 +31,6 @@ function validateSize() {
     fileUploadError.textContent = "Error: You need to select a file";
     fileUploadSendButton.style.pointerEvents = "none";
     fileUploadSendButton.style.opacity = "0.5";
-    
   }
 
   const limit = 6144; // 6MB in KB
@@ -41,22 +40,19 @@ function validateSize() {
     fileUploadError.textContent = `Error: File larger than 6MB (${(size / 1024).toFixed(2)} MB)`;
     fileUploadSendButton.style.pointerEvents = "none";
     fileUploadSendButton.style.opacity = "0.5";
-  } 
+  }
 }
-
 
 //timeout for error alert
 setTimeout(() => {
-    const alert = document.querySelector(".error-alert");
-    if (alert)  alert.style.display = "none";
-  }, 3000);
-
+  const alert = document.querySelector(".error-alert");
+  if (alert) alert.style.display = "none";
+}, 3000);
 
 fileInput.addEventListener("change", () => {
   fileUploadError.textContent = "";
   validateSize();
 });
-
 
 fileUploadSendButton.addEventListener("click", (event) => {
   const file = document.querySelector("#file-input").files[0];
@@ -66,18 +62,12 @@ fileUploadSendButton.addEventListener("click", (event) => {
     fileUploadError.textContent = "Error: You need to select a file";
     return;
   }
-
-  }
-);
-
-
-
-
+});
 
 uploadFileButton.addEventListener("click", () => {
   fileInput.value = ""; // Clear input
   fileUploadError.textContent = ""; //clear error
-  fileUploadSendButton.style.pointerEvents = "all"; //enable pointer event and opacity 
+  fileUploadSendButton.style.pointerEvents = "all"; //enable pointer event and opacity
   fileUploadSendButton.style.opacity = "1";
   fileUploadDialog.showModal();
 });

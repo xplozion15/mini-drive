@@ -44,8 +44,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://mini-drive-5c3e.onrender.com/google/callback"
-
+      callbackURL: "https://mini-drive-5c3e.onrender.com/google/callback",
+      // callbackURL: "http://localhost:3000/google/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
@@ -104,81 +104,74 @@ app.get(
   },
 );
 
+app.post("/profile/", upload.single("avatar"), async function (req, res, next) {
+  const parentFolderId = null;
+  const file = req.file;
+  console.log(file);
 
-app.post(
-  "/profile/",
-  upload.single("avatar"),
-  async function (req, res, next) {
-    
-    
+  const MAX_FILE_SIZE = 6291456;
 
-    const parentFolderId = null;
-    const file = req.file;
-    console.log(file);
-    
-    const MAX_FILE_SIZE = 6291456;
+  if (file.size > MAX_FILE_SIZE) {
+    return res
+      .status(400)
+      .send({ error: "Something failed/file too large(6mb max)" });
+  }
 
-    if(file.size > MAX_FILE_SIZE) {
-       return res.status(400).send({ error: 'Something failed/file too large(6mb max)' })
-    }
+  const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
+  const uploadedFilePath = uploadedFile.path;
 
-    const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
-    const uploadedFilePath = uploadedFile.path;
+  // Check if file already exists in same folder
+  const existingFile = await prisma.file.findFirst({
+    where: {
+      name: file.originalname,
+      folderId: parentFolderId,
+    },
+  });
 
-    // Check if file already exists in same folder
-    const existingFile = await prisma.file.findFirst({
+  // update if file already exists and create one if it doesnt
+  if (existingFile) {
+    await prisma.file.update({
       where: {
+        id: existingFile.id,
+      },
+      data: {
         name: file.originalname,
-        folderId: parentFolderId,
+        path: uploadedFilePath,
+        size: file.size,
+        fileType: file.mimetype,
       },
     });
-
-    // update if file already exists and create one if it doesnt
-    if (existingFile) {
-      await prisma.file.update({
-        where: {
-          id: existingFile.id,
-        },
-        data: {
-          name: file.originalname,
-          path: uploadedFilePath,
-          size: file.size,
-          fileType: file.mimetype,
-        },
-      });
-    } else {
-      await prisma.file.create({
-        data: {
-          name: file.originalname,
-          folderId: parentFolderId,
-          path: uploadedFilePath,
-          size: file.size,
-          fileType: file.mimetype,
-          userId : req.user.id,
-        },
-      });
-    }
-    // req.file is the `avatar` file
-    // req.body will hold the text fields, if there were any
-    res.redirect(`/drive`); //refresh the same page//
+  } else {
+    await prisma.file.create({
+      data: {
+        name: file.originalname,
+        folderId: parentFolderId,
+        path: uploadedFilePath,
+        size: file.size,
+        fileType: file.mimetype,
+        userId: req.user.id,
+      },
+    });
   }
-);
-
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  res.redirect(`/drive`); //refresh the same page//
+});
 
 app.post(
   "/profile/:parentFolderId",
   upload.single("avatar"),
   async function (req, res, next) {
-    
-
     const parentFolderId = Number(req.params.parentFolderId);
     const file = req.file;
     console.log(file);
 
     const MAX_FILE_SIZE = 6291456;
-    
-    if(file.size > MAX_FILE_SIZE) {
-       return res.status(400).send({ error: 'Something failed/file too large(6mb max)' })
+
+    if (file.size > MAX_FILE_SIZE) {
+      return res
+        .status(400)
+        .send({ error: "Something failed/file too large(6mb max)" });
     }
 
     const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
@@ -213,32 +206,22 @@ app.post(
           path: uploadedFilePath,
           size: file.size,
           fileType: file.mimetype,
-          userId : req.user.id
+          userId: req.user.id,
         },
       });
     }
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
     res.redirect(`/drive/${parentFolderId}`); //refresh the same page//
-  }
+  },
 );
-
-
-
-// //upload middleware
-// const uploadMiddleware = upload.fields([
-//   { name: "avatar", maxCount: 1 },
-// ]);
-
-
 
 // 404 error route
 app.use((req, res, next) => {
   res.status(404).send("error 404 this url doesnt exist in mini drive app");
 });
 
-
-//listener 
+//listener
 app.listen(port, () => {
   console.log(`Welcome to mini drive express app ${port}`);
 });

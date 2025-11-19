@@ -43,14 +43,11 @@ function validateSize() {
   }
 }
 
-
-
 //timeout for error alert
 setTimeout(() => {
-    const alert = document.querySelector(".error-alert");
-    if (alert)  alert.style.display = "none";
-  }, 3000);
-
+  const alert = document.querySelector(".error-alert");
+  if (alert) alert.style.display = "none";
+}, 3000);
 
 fileInput.addEventListener("change", () => {
   fileUploadError.textContent = "";

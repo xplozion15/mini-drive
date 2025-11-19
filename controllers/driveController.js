@@ -7,7 +7,7 @@ const { validationResult } = require("express-validator");
 async function showdrivePage(req, res) {
   if (!req.user) {
     // User is not logged in
-    return res.redirect("/login");
+    return res.redirect("/");
   }
 
   const folders = await prisma.folder.findMany({
@@ -30,6 +30,11 @@ async function showdrivePage(req, res) {
 }
 
 async function showFolderPage(req, res) {
+  if (!req.user) {
+    // User is not logged in
+    return res.redirect("/");
+  }
+
   const parentFolderId = Number(req.params.folderId);
 
   //get grandparent Folder and its it to pass it to the back button in the ejs for navigation
@@ -44,12 +49,6 @@ async function showFolderPage(req, res) {
   });
 
   const grandParentFolderId = grandParentFolder.parentId;
-
-  //route authentication
-  if (!req.user) {
-    // if user is not logged in then redirect to login page//
-    return res.redirect("/login");
-  }
 
   const folders = await prisma.folder.findMany({
     // get the folders
@@ -82,7 +81,8 @@ async function showFolderPage(req, res) {
 async function postNewFolderToDb(req, res) {
   //check if user is authenticated
   if (!req.user) {
-    return res.redirect("/login");
+    // User is not logged in
+    return res.redirect("/");
   }
 
   //userid ,folderName and parentFolderId
@@ -155,6 +155,11 @@ async function postNewFolderToDb(req, res) {
 }
 
 async function deleteFolderFromDb(req, res) {
+  if (!req.user) {
+    // User is not logged in
+    return res.redirect("/");
+  }
+
   const userId = Number(req.user.id); // get the current user and folder id
   const folderId = Number(req.params.folderId);
 
@@ -185,7 +190,8 @@ async function deleteFolderFromDb(req, res) {
 async function renameFolderInDb(req, res) {
   //check authentication for the route
   if (!req.user) {
-    return res.redirect("/login");
+    // User is not logged in
+    return res.redirect("/");
   }
 
   const userId = Number(req.user.id); // get the current user and folder id
@@ -261,6 +267,11 @@ async function renameFolderInDb(req, res) {
 
 // deleteFileFromDb
 async function deleteFileFromDb(req, res) {
+  if (!req.user) {
+    // User is not logged in
+    return res.redirect("/");
+  }
+
   const fileId = Number(req.params.fileId);
 
   //doing this to get the parent folder id of the file to use in the redirect url after deleing file
@@ -288,6 +299,11 @@ async function deleteFileFromDb(req, res) {
 }
 
 async function showFileDetails(req, res) {
+  if (!req.user) {
+    // User is not logged in
+    return res.redirect("/");
+  }
+
   const fileId = Number(req.params.fileId);
 
   const file = await prisma.file.findUnique({
@@ -313,7 +329,8 @@ async function showFileDetails(req, res) {
 async function renameFileInDb(req, res) {
   //check if user is logged in or not
   if (!req.user) {
-    return res.redirect("/login");
+    // User is not logged in
+    return res.redirect("/");
   }
 
   const errors = validationResult(req); //check errors from express validator
@@ -416,7 +433,8 @@ async function renameFileInDb(req, res) {
 
 async function downloadFile(req, res) {
   if (!req.user) {
-    return res.redirect("/login");
+    // User is not logged in
+    return res.redirect("/");
   }
 
   const userId = req.user.id;
