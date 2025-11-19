@@ -122,7 +122,6 @@ dialog button {
   color: var(--color-primary);
   font-weight: 800;
   font-size: calc(0.6rem + 1.6vw);
-  
 }
 
 nav {
