@@ -20,17 +20,13 @@
   color: var(--color-white);
 }
 
-
-a{
+a {
   text-decoration: none;
 }
 
 body {
   background-color: var(--color-bg);
 }
-
-
-
 
 .such-empty-text {
   display: flex;
@@ -43,6 +39,7 @@ body {
   align-self: center;
   text-align: center;
   font-weight: 300;
+  margin: 0.5rem;
 }
 
 main {
@@ -64,6 +61,10 @@ dialog {
   height: 25vh;
   /* border: 2px solid red; */
   box-shadow: 0 0 10px 500vw rgba(0, 0, 0, 0.6);
+}
+
+.dialog-wrapper button {
+  font-weight: 600;
 }
 
 .dialog-wrapper {
@@ -104,7 +105,9 @@ dialog button {
 }
 
 .create-new-folder-button,
-.file-upload-send-button,.submit-rename-file-button,.submit-rename-folder-button {
+.file-upload-send-button,
+.submit-rename-file-button,
+.submit-rename-folder-button {
   background-color: var(--color-primary);
   border: 2px solid var(--color-primary);
   color: var(--color-white);
@@ -112,7 +115,8 @@ dialog button {
 
 .create-folder-button-container,
 .upload-file-button-container,
-.folder-rename-button-container,.file-rename-button-container {
+.folder-rename-button-container,
+.file-rename-button-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -121,7 +125,7 @@ dialog button {
 .logo {
   color: var(--color-primary);
   font-weight: 800;
-  font-size: calc(0.6rem + 1.6vw);
+  font-size: calc(1rem + 1.6vw);
 }
 
 nav {
@@ -293,8 +297,6 @@ nav {
   border: 2px solid var(--color-primary);
 }
 
-
-
 .file-div {
   background-color: var(--color-file);
   font-size: 0.7rem;
@@ -357,6 +359,7 @@ nav {
   width: 10rem;
   height: 2.5rem;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .folder-div-options-icons-div {
@@ -467,7 +470,6 @@ footer {
   color: var(--color-primary);
 }
 
-
 .lucide {
   width: calc(1vw + 0.8rem);
   height: calc(1vw + 0.8rem);
@@ -495,15 +497,15 @@ footer {
   border-radius: 0.5rem;
   position: absolute;
   z-index: 999;
-  left:15%;
+  left: 15%;
   top: 3%;
   /* padding: 0.5rem; */
 }
 
-
-.error-text,.file-upload-error {
+.error-text,
+.file-upload-error {
   color: red;
-  font-weight: 600;
+  font-weight: 500;
   font-size: calc(0.5rem + 0.5vw);
 }
 
@@ -512,62 +514,72 @@ footer {
   font-weight: 400;
 }
 
-@media (max-width:480px) {
-    .hero-section {
-      width: 80vw;
-      margin: auto;
-      gap: 0rem;
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: center;
-    }
 
-    main {
-      min-height: 60vh;
-    }
-    
-    .hero-section-left-side {
-   
-      width: 80vw;
-      margin: auto;
-      height: fit-content;
-    }
-
-    .hero-section-right-side {
-     
-      width: 80vw;
-      margin: auto;
-    }
-
-    .hero-image {
-      width: 100%;
-    }
-
-    .file-div,.folder-div {
-      width: 100%;
-    }
-
-    .folder-and-files-div {
-      /* border: 2px solid red; */
-      width: 92vw;
-    }
-    
-    .button-container {
-      width: 92vw;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .upload-file-button,.back-button,.new-folder-button {
-      width: 40vw;
-      height: 5vh;
-    }
-
-    dialog {
-      width: 90vw;
-    }
-    
-    footer {padding:0.5rem;}
+@media (max-width: 1024px) {
+  dialog {
+    width: 50vw;
+  }
 }
+
+
+
+@media (max-width: 480px) {
+  .hero-section {
+    width: 80vw;
+    height: 66vh;
+    margin: auto;
+    gap: 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-section-left-side {
+    width: 80vw;
+    margin: auto;
+    height: fit-content;
+  }
+
+  .hero-section-right-side {
+    width: 80vw;
+    margin: auto;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .file-div,
+  .folder-div {
+    width: 100%;
+  }
+
+  .folder-and-files-div {
+    width: 92vw;
+  }
+
+  .button-container {
+    width: 92vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upload-file-button,
+  .back-button,
+  .new-folder-button {
+    width: 40vw;
+    height: 5vh;
+  }
+
+  dialog {
+    width: 90vw;
+  }
+
+  footer {
+    padding: 0.5rem;
+  }
+}
+
+

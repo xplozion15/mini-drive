@@ -224,10 +224,10 @@ app.post(
 
 
 
-//upload middleware
-const uploadMiddleware = upload.fields([
-  { name: "avatar", maxCount: 1 },
-]);
+// //upload middleware
+// const uploadMiddleware = upload.fields([
+//   { name: "avatar", maxCount: 1 },
+// ]);
 
 
 
