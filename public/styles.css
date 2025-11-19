@@ -20,9 +20,17 @@
   color: var(--color-white);
 }
 
+
+a{
+  text-decoration: none;
+}
+
 body {
   background-color: var(--color-bg);
 }
+
+
+
 
 .such-empty-text {
   display: flex;
@@ -39,7 +47,7 @@ body {
 
 main {
   min-height: 80vh;
-  /* margin-bottom: 2rem; */
+  margin-bottom: 2rem;
 }
 
 footer {
@@ -191,6 +199,7 @@ nav {
 
 .folder-name,
 .file-name {
+  font-weight: 600;
   font-size: calc(0.5rem + 0.5vw);
 }
 
@@ -283,6 +292,8 @@ nav {
   border-radius: 1rem;
   border: 2px solid var(--color-primary);
 }
+
+
 
 .file-div {
   background-color: var(--color-file);
@@ -454,4 +465,44 @@ footer {
 
 .footer-links a {
   color: var(--color-primary);
+}
+
+
+.lucide {
+  width: calc(1vw + 0.8rem);
+  height: calc(1vw + 0.8rem);
+}
+
+.error-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-primary-hover);
+  gap: 0.5rem;
+  /* border: 2px solid red; */
+  margin-left: 1rem;
+}
+
+.error-alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 70vw;
+  margin: auto;
+  background-color: rgb(45, 44, 44);
+  border: 2px solid rgb(45, 44, 44);
+  border-radius: 0.5rem;
+  position: absolute;
+  z-index: 999;
+  left:15%;
+  top: 3%;
+  /* padding: 0.5rem; */
+}
+
+
+.error-text,.file-upload-error {
+  color: red;
+  font-weight: 600;
+  font-size: calc(0.5rem + 0.5vw);
 }

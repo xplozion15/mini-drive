@@ -11,7 +11,7 @@
 <body>
     <%- include('navbar', {}) %>
         <main>
-
+            <%- include("partials/errors.ejs") %>
 
             <div class="button-container">
                 <div class="button-sub-container">
@@ -33,22 +33,23 @@
                         </svg> UPLOAD FILE</button>
                 </div>
 
-                <button type="button" class="back-button" onclick="window.history.back()"> <svg
+                <button type="button" class="back-button" onclick="window.location.href = '/drive/<%= grandParentFolderId %>'"> <svg
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-arrow-left-icon lucide-arrow-left">
                         <path d="m12 19-7-7 7-7" />
                         <path d="M19 12H5" />
                     </svg> BACK </button>
-
+                  
             </div>
 
 
             <dialog class="file-upload-dialog">
                 <div class="dialog-wrapper">
 
-                    <form action="/profile/<%= parentFolderId %>" method="post" enctype="multipart/form-data">
-                        <input type="file" name="avatar" />
+                    <form action="/profile/<%= parentFolderId %>" method="post" enctype="multipart/form-data"> 
+                        <input type="file" name="avatar" id="file-input"  />
+                        <p class="file-upload-error"></p>
                         <div class="upload-file-button-container">
                             <button type="button" class="file-upload-cancel-button">CANCEL</button>
                             <button type="submit" class="file-upload-send-button">SEND</button>
@@ -74,7 +75,7 @@
                                             <path
                                                 d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
                                         </svg>
-                                        <p>
+                                        <p class="folder-name">
                                             <%= folder.name %>
                                         </p>
                                     </div>
@@ -130,7 +131,7 @@
                                                     <path d="M14 2v4a2 2 0 0 0 2 2h4" />
                                                 </svg>
 
-                                                <p>
+                                                <p class="file-name">
                                                     <%= file.name %>
                                                 </p>
                                             </div>

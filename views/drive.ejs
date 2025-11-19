@@ -9,9 +9,10 @@
 </head>
 
 <body>
+
     <%- include('navbar', {}) %>
         <main>
-
+             <%- include("partials/errors.ejs") %>
             <div class="button-container">
                 <div class="button-sub-container">
                     <button class="new-folder-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -61,11 +62,10 @@
 
                                     <div class="folder-div-options-icons-div">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="folder-div-options-icons folder-rename-icon" width="24" height="24"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-folder-pen-icon lucide-folder-pen">
+                                            class="lucide lucide-folder-pen-icon lucide-folder-pen folder-div-options-icons folder-rename-icon">
                                             <path
                                                 d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
                                             <path
@@ -76,11 +76,10 @@
                                             class="delete-folder-form">
                                             <button type="submit" class="menu-delete delete-folder-button"
                                                 data-folder-id="<%= folder.id %>"><svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="folder-div-options-icons folder-delete-icon" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-trash-icon lucide-trash">
+                                                    class="lucide lucide-trash-icon lucide-trash folder-div-options-icons folder-delete-icon">
                                                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
                                                     <path d="M3 6h18" />
                                                     <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -120,10 +119,10 @@
                                                     class="download-file-form">
                                                     <button type="submit" class="download-file-button"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            class="file-options-icons" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="lucide lucide-download-icon lucide-download">
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="lucide lucide-download-icon lucide-download file-options-icons">
                                                             <path d="M12 15V3" />
                                                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                                             <path d="m7 10 5 5 5-5" />
@@ -135,21 +134,19 @@
 
 
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    class="file-options-icons file-info-icon"
                                                     data-file-id="<%= file.id %>" height="24" viewBox="0 0 24 24"
                                                     fill="none" stroke="currentColor" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-info-icon lucide-info">
+                                                    class="lucide lucide-info-icon lucide-info file-options-icons file-info-icon">
                                                     <circle cx="12" cy="12" r="10" />
                                                     <path d="M12 16v-4" />
                                                     <path d="M12 8h.01" />
                                                 </svg>
 
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="file-options-icons file-rename-icon" width="24" height="24"
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-folder-pen-icon lucide-folder-pen">
+                                                    class="lucide lucide-folder-pen-icon lucide-folder-pen file-options-icons file-rename-icon">
                                                     <path
                                                         d="M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5" />
                                                     <path
@@ -161,12 +158,11 @@
                                                     class="delete-file-form">
                                                     <button type="submit" class="menu-delete delete-file-button"
                                                         data-folder-id="<%= file.id %>"><svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="file-div-options-icons file-delete-icon" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="lucide lucide-trash-icon lucide-trash">
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="lucide lucide-trash-icon lucide-trash file-div-options-icons file-delete-icon">
                                                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
                                                             <path d="M3 6h18" />
                                                             <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -185,30 +181,29 @@
 
 
                     <dialog class="create-folder-dialog">
-
-                    
-                            <form action="/drive/newfolder" method="post" class="dialog-wrapper">
+                        <form action="/drive/newfolder" method="post" class="dialog-wrapper">
                             <div>
                                 <div>
                                     <label for="folder-name">Folder name?</label>
                                 </div>
                                 <input type="text" name="folder-name" id="folder-name">
                             </div>
-                           <div class="create-folder-button-container">
-                             <button type="reset" class="cancel-new-folder-button">CANCEL</button>
-                            <button type="submit" class="create-new-folder-button">CREATE</button>
-                           </div>
+                           
+                                <div class="create-folder-button-container">
+                                    <button type="reset" class="cancel-new-folder-button">CANCEL</button>
+                                    <button type="submit" class="create-new-folder-button">CREATE</button>
+                                </div>
                         </form>
-
-                        
                     </dialog>
 
 
                     <!--  dialog for file  upload -->
                     <dialog class="file-upload-dialog">
                         <div class="dialog-wrapper">
-                            <form action="/profile" method="post" enctype="multipart/form-data">
-                                <input type="file" name="avatar" />
+                            <form action="/profile" method="post" enctype="multipart/form-data"
+                                class="file-upload-form">
+                                <input type="file" name="avatar" id="file-input" />
+                                <p class="file-upload-error"></p>
                                 <div class="upload-file-button-container">
                                     <button type="button" class="file-upload-cancel-button">CANCEL</button>
                                     <button type="submit" class="file-upload-send-button">SEND</button>
@@ -221,37 +216,39 @@
         <dialog class="folder-rename-dialog">
             <div class="dialog-wrapper">
 
-            <form method="post" class="folder-rename-form">
-                <input type="text" name="folder-id-hidden" id="folder-id-hidden" hidden>
-                <div>
-                    <label for="folder-rename">New Folder Name?</label>
-                    <input type="text" name="folder-rename" id="folder-rename">
-                </div>
-               <div class="folder-rename-button-container">
-                 <button type="reset" class="cancel-folder-rename-button"
-                    id="cancel-folder-rename-button">CANCEL</button>
-                <button type="submit" class="submit-rename-folder-button"
-                    id="submit-rename-folder-button">RENAME</button>
-               </div>
-            </form>
+                <form method="post" class="folder-rename-form">
+                    <input type="text" name="folder-id-hidden" id="folder-id-hidden" hidden>
+                    <div>
+                        <label for="folder-rename">New Folder Name?</label>
+                        <input type="text" name="folder-rename" id="folder-rename">
+                    </div>
+                    <div class="folder-rename-button-container">
+                        <button type="reset" class="cancel-folder-rename-button"
+                            id="cancel-folder-rename-button">CANCEL</button>
+                        <button type="submit" class="submit-rename-folder-button"
+                            id="submit-rename-folder-button">RENAME</button>
+                    </div>
+                </form>
             </div>
         </dialog>
 
         <dialog class="file-rename-dialog">
-           <div class="dialog-wrapper">
-             <form method="post" class="file-rename-form">
-                <input type="text" name="file-id-hidden" id="file-id-hidden" hidden>
-                <div>
-                    <label for="file-rename">New File Name?</label>
-                    <input type="text" name="file-rename" id="file-rename">
-                </div>
+            <div class="dialog-wrapper">
+                <form method="post" class="file-rename-form">
+                    <input type="text" name="file-id-hidden" id="file-id-hidden" hidden>
+                    <div>
+                        <label for="file-rename">New File Name?</label>
+                        <input type="text" name="file-rename" id="file-rename">
+                    </div>
 
-                <div class="file-rename-button-container">
-                    <button type="reset" class="cancel-file-rename-button" id="cancel-file-rename-button">CANCEL</button>
-                <button type="submit" class="submit-rename-file-button" id="submit-rename-file-button">RENAME</button>
-                </div>
-            </form>
-           </div>
+                    <div class="file-rename-button-container">
+                        <button type="reset" class="cancel-file-rename-button"
+                            id="cancel-file-rename-button">CANCEL</button>
+                        <button type="submit" class="submit-rename-file-button"
+                            id="submit-rename-file-button">RENAME</button>
+                    </div>
+                </form>
+            </div>
         </dialog>
 
         <%- include('footer', {}) %>

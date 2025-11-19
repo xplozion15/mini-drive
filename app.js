@@ -108,9 +108,18 @@ app.post(
   "/profile/",
   upload.single("avatar"),
   async function (req, res, next) {
+    
+    
+
     const parentFolderId = null;
     const file = req.file;
     console.log(file);
+    
+    const MAX_FILE_SIZE = 6291456;
+
+    if(file.size > MAX_FILE_SIZE) {
+       return res.status(400).send({ error: 'Something failed/file too large(6mb max)' })
+    }
 
     const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
     const uploadedFilePath = uploadedFile.path;
@@ -159,9 +168,17 @@ app.post(
   "/profile/:parentFolderId",
   upload.single("avatar"),
   async function (req, res, next) {
+    
+
     const parentFolderId = Number(req.params.parentFolderId);
     const file = req.file;
     console.log(file);
+
+    const MAX_FILE_SIZE = 6291456;
+    
+    if(file.size > MAX_FILE_SIZE) {
+       return res.status(400).send({ error: 'Something failed/file too large(6mb max)' })
+    }
 
     const uploadedFile = await uploadFile(file, req.user.id, parentFolderId);
     const uploadedFilePath = uploadedFile.path;
@@ -206,36 +223,21 @@ app.post(
 );
 
 
-app.post(
-  "/photos/upload",
-  upload.array("photos", 12),
-  function (req, res, next) {
-    // req.files is array of `photos` files
-    // req.body will contain the text fields, if there were any
-    res.redirect("/");
-  },
-);
 
+//upload middleware
 const uploadMiddleware = upload.fields([
   { name: "avatar", maxCount: 1 },
-  { name: "gallery", maxCount: 8 },
 ]);
 
-app.post("/cool-profile", uploadMiddleware, function (req, res, next) {
-  // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
-  //
-  // e.g.
-  //  req.files['avatar'][0] -> File
-  //  req.files['gallery'] -> Array
-  //
-  // req.body will contain the text fields, if there were any
-});
+
 
 // 404 error route
 app.use((req, res, next) => {
   res.status(404).send("error 404 this url doesnt exist in mini drive app");
 });
 
+
+//listener 
 app.listen(port, () => {
   console.log(`Welcome to mini drive express app ${port}`);
 });

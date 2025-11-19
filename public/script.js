@@ -19,7 +19,66 @@ let fileUploadCancelButton = document.querySelector(
   ".file-upload-cancel-button",
 );
 
+let fileInput = document.getElementById("file-input");
+let fileUploadError = document.querySelector(".file-upload-error");
+const fileUploadSendButton = document.querySelector(".file-upload-send-button");
+
+// frontend validation for file size
+function validateSize() {
+  const file = document.querySelector("#file-input").files[0];
+
+  if (!file) {
+    fileUploadError.textContent = "Error: You need to select a file";
+    fileUploadSendButton.style.pointerEvents = "none";
+    fileUploadSendButton.style.opacity = "0.5";
+    
+  }
+
+  const limit = 6144; // 6MB in KB
+  const size = Math.round(file.size / 1024); // Convert bytes to KB
+
+  if (size > limit) {
+    fileUploadError.textContent = `Error: File larger than 6MB (${(size / 1024).toFixed(2)} MB)`;
+    fileUploadSendButton.style.pointerEvents = "none";
+    fileUploadSendButton.style.opacity = "0.5";
+  } 
+}
+
+
+//timeout for error alert
+setTimeout(() => {
+    const alert = document.querySelector(".error-alert");
+    if (alert)  alert.style.display = "none";
+  }, 3000);
+
+
+fileInput.addEventListener("change", () => {
+  fileUploadError.textContent = "";
+  validateSize();
+});
+
+
+fileUploadSendButton.addEventListener("click", (event) => {
+  const file = document.querySelector("#file-input").files[0];
+
+  if (!file) {
+    event.preventDefault(); // stop upload
+    fileUploadError.textContent = "Error: You need to select a file";
+    return;
+  }
+
+  }
+);
+
+
+
+
+
 uploadFileButton.addEventListener("click", () => {
+  fileInput.value = ""; // Clear input
+  fileUploadError.textContent = ""; //clear error
+  fileUploadSendButton.style.pointerEvents = "all"; //enable pointer event and opacity 
+  fileUploadSendButton.style.opacity = "1";
   fileUploadDialog.showModal();
 });
 
@@ -49,9 +108,6 @@ cancelNewFolderButton.addEventListener("click", () => {
   createFolderDialog.close();
 });
 
-
-
-
 folderDivs.forEach((folder) => {
   let folderRenameDialog = document.querySelector(".folder-rename-dialog");
   let folderRenameIcon = folder.querySelector(".folder-rename-icon");
@@ -75,23 +131,19 @@ cancelFolderRenameButton.addEventListener("click", () => {
   folderRenameDialog.close();
 });
 
-
-
 fileDivs.forEach((file) => {
   let fileRenameDialog = document.querySelector(".file-rename-dialog");
   let fileRenameIcon = file.querySelector(".file-rename-icon");
   let fileInfoIcon = file.querySelector(".file-info-icon");
-  let fileRenameForm = document.querySelector(".file-rename-form")
+  let fileRenameForm = document.querySelector(".file-rename-form");
   let fileId = file.dataset.fileId;
 
-  
   fileRenameIcon.addEventListener("click", (event) => {
     event.preventDefault();
-    event.stopPropagation(); //event delegation 
+    event.stopPropagation(); //event delegation
 
     fileRenameForm.action = `/drive/rename/file/${fileId}`;
     document.getElementById("file-id-hidden").value = fileId;
-
 
     fileRenameDialog.showModal();
   });
