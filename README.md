@@ -2,7 +2,7 @@
 
 A personal file management web application inspired by Google Drive, built with **Node.js**, **Express**, **EJS**, and **Prisma**(PostgreSQL).
 
-- Live preview: _[Add your live link here]_
+- Live preview: _[https://mini-drive-5c3e.onrender.com/]_
 
 ## Features
 - **Google OAuth Login:** Secure authentication using Google accounts.
