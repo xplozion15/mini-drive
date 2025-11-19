@@ -44,7 +44,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/google/callback",
+      callbackURL: "https://mini-drive-5c3e.onrender.com/google/callback"
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
