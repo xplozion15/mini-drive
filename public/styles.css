@@ -46,7 +46,7 @@ body {
 }
 
 main {
-  min-height: 80vh;
+  min-height: 60vh;
   margin-bottom: 2rem;
 }
 
@@ -122,6 +122,7 @@ dialog button {
   color: var(--color-primary);
   font-weight: 800;
   font-size: calc(0.6rem + 1.6vw);
+  
 }
 
 nav {
@@ -505,4 +506,69 @@ footer {
   color: red;
   font-weight: 600;
   font-size: calc(0.5rem + 0.5vw);
+}
+
+.footer-text {
+  font-size: calc(0.6rem + 0.6vw);
+  font-weight: 400;
+}
+
+@media (max-width:480px) {
+    .hero-section {
+      width: 80vw;
+      margin: auto;
+      gap: 0rem;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      min-height: 60vh;
+    }
+    
+    .hero-section-left-side {
+   
+      width: 80vw;
+      margin: auto;
+      height: fit-content;
+    }
+
+    .hero-section-right-side {
+     
+      width: 80vw;
+      margin: auto;
+    }
+
+    .hero-image {
+      width: 100%;
+    }
+
+    .file-div,.folder-div {
+      width: 100%;
+    }
+
+    .folder-and-files-div {
+      /* border: 2px solid red; */
+      width: 92vw;
+    }
+    
+    .button-container {
+      width: 92vw;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .upload-file-button,.back-button,.new-folder-button {
+      width: 40vw;
+      height: 5vh;
+    }
+
+    dialog {
+      width: 90vw;
+    }
+    
+    footer {padding:0.5rem;}
 }

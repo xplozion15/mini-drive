@@ -6,4 +6,14 @@ function showLoginPage(req, res) {
   res.render("loginPage");
 }
 
-module.exports = { showIndexPage, showLoginPage };
+function showPrivacyPage(req,res) {
+  res.render("terms");
+
+}
+
+function showTermsPage(req,res) {
+  res.render("privacyPolicy");
+}
+
+
+module.exports = { showIndexPage, showLoginPage ,showTermsPage,showPrivacyPage};
